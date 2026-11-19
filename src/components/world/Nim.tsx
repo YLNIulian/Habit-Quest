@@ -13,7 +13,7 @@ import Animated, {
 } from "react-native-reanimated";
 import Svg, { Circle, Ellipse, Line, Path, Rect } from "react-native-svg";
 
-import type { GearTier } from "@/lib/gear";
+import type { GearTier } from "@/game/gear";
 import { nimColors as n, springs } from "@/theme/tokens";
 
 // Nim is drawn on an 80×100 grid, feet on y = 96.

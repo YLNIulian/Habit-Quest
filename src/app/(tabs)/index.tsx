@@ -1,4 +1,4 @@
-import dayjs from "dayjs";
+import { router } from "expo-router";
 import { useState } from "react";
 import { View, useWindowDimensions } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -9,21 +9,17 @@ import { QuestCard } from "@/components/today/QuestCard";
 import { StatPill } from "@/components/today/StatPill";
 import { WeatherNote } from "@/components/today/WeatherNote";
 import { AppText } from "@/components/ui/AppText";
+import { Button } from "@/components/ui/Button";
 import { Screen } from "@/components/ui/Screen";
 import { MountainScene } from "@/components/world/MountainScene";
-import {
-  HABITS,
-  PLAYER,
-  QUESTS,
-  TODAY_ISO,
-  WARMTH_BY_WEATHER,
-  XP_PER_HABIT,
-  countOn,
-} from "@/data/mock";
-import { tierForLevel } from "@/lib/gear";
-import { isDueOn } from "@/lib/habits";
-import { useCountUp } from "@/lib/useCountUp";
-import { INITIAL_DONE_COUNT, useUi } from "@/store/ui";
+import { tierForLevel } from "@/game/gear";
+import { countOn, dueOn, isDone } from "@/game/history";
+import { XP_PER_HABIT } from "@/game/rules";
+import { useCountUp } from "@/hooks/useCountUp";
+import { useJourney } from "@/hooks/useJourney";
+import { useToday } from "@/hooks/useToday";
+import { fromIso, relativeDayLabel } from "@/lib/dates";
+import { useHabitStore } from "@/store/useHabitStore";
 import { layout, spacing } from "@/theme/tokens";
 import { useTheme } from "@/theme/useTheme";
 
@@ -32,36 +28,38 @@ export default function TodayScreen() {
   const insets = useSafeAreaInsets();
   const { width: winW } = useWindowDimensions();
   const width = Math.min(winW, layout.maxWidth);
-  const done = useUi((s) => s.done);
-  const toggleDone = useUi((s) => s.toggleDone);
-  const level = useUi((s) => s.level);
-  const weather = useUi((s) => s.weather);
   const [hop, setHop] = useState(0);
 
-  const today = dayjs();
-  const due = HABITS.filter((h) => isDueOn(h, today));
-  const remaining = due.filter((h) => !done[h.id]).length;
+  const today = useToday();
+  const habits = useHabitStore((s) => s.habits);
+  const log = useHabitStore((s) => s.log);
+  const checkIn = useHabitStore((s) => s.checkIn);
+  const checkOut = useHabitStore((s) => s.checkOut);
+  const { player, quests } = useJourney();
 
-  // Mock XP: each finished habit is 15 m. Real rules replace this later.
-  const gained = (Object.values(done).filter(Boolean).length - INITIAL_DONE_COUNT) * XP_PER_HABIT;
-  const xp = Math.min(Math.max(PLAYER.xp + gained, 0), PLAYER.xpToNext);
-  const altitude = useCountUp(PLAYER.totalXp + (xp - PLAYER.xp));
-  const warmth = WARMTH_BY_WEATHER[weather];
-  const missed = HABITS.find((h) => h.id === PLAYER.missedHabitId)?.name;
+  const due = dueOn(habits, today);
+  const doneCount = due.filter((h) => isDone(h, log, today)).length;
+  const remaining = due.length - doneCount;
+  const altitude = useCountUp(player.totalXp);
+  const missed = player.missedHabitIds
+    .map((id) => habits.find((h) => h.id === id)?.name)
+    .filter((name): name is string => !!name);
 
   const heading =
-    due.length === 0
-      ? "Rest day"
-      : remaining === 0
-        ? "Today's route is done"
-        : `${remaining} ${remaining === 1 ? "step" : "steps"} left today`;
+    habits.length === 0
+      ? "Your route is empty"
+      : due.length === 0
+        ? "Rest day"
+        : remaining === 0
+          ? "Today's route is done"
+          : `${remaining} ${remaining === 1 ? "step" : "steps"} left today`;
 
   return (
     <Screen bleed>
       <MountainScene
         width={width}
-        weather={weather}
-        tier={tierForLevel(level)}
+        weather={player.weather}
+        tier={tierForLevel(player.level)}
         hop={hop}
         fire={due.length > 0 && remaining === 0}
         topInset={insets.top}
@@ -77,8 +75,8 @@ export default function TodayScreen() {
             alignItems: "flex-start",
           }}
         >
-          <View accessible accessibilityLabel={`Camp ${level}, ${altitude} metres`}>
-            <AppText variant="heading">Camp {level}</AppText>
+          <View accessible accessibilityLabel={`Camp ${player.level}, ${altitude} metres`}>
+            <AppText variant="heading">Camp {player.level}</AppText>
             <View style={{ flexDirection: "row", alignItems: "baseline", gap: 6 }}>
               <AppText variant="numeral">{altitude.toLocaleString("en-US")}</AppText>
               <AppText variant="figure">m</AppText>
@@ -88,31 +86,44 @@ export default function TodayScreen() {
             <StatPill
               icon="flame"
               label="Warmth"
-              value={`${warmth}`}
-              color={weather === "storm" ? c.cold : c.sun}
+              value={`${player.hp}`}
+              color={player.weather === "storm" ? c.cold : c.sun}
             />
-            <StatPill icon="flag" label="Day streak" value={`${PLAYER.streakDays}`} color={c.accent} />
+            <StatPill icon="flag" label="Day streak" value={`${player.streakDays}`} color={c.accent} />
           </View>
         </View>
       </MountainScene>
 
       <View style={{ paddingHorizontal: layout.screenPadding }}>
-        <CampProgress level={level} xp={xp} xpToNext={PLAYER.xpToNext} />
+        <CampProgress level={player.level} xp={player.xp} xpToNext={player.xpToNext} />
 
-        {weather !== "clear" && (
+        {player.weather !== "clear" && (
           <View style={{ marginTop: spacing.xl }}>
-            <WeatherNote weather={weather} missedHabit={missed} />
+            <WeatherNote
+              weather={player.weather}
+              missedHabits={missed}
+              when={player.missedOn ? relativeDayLabel(player.missedOn, today) : undefined}
+              warmthLost={player.warmthLost}
+            />
           </View>
         )}
 
         <View style={{ marginTop: spacing.xxl, marginBottom: spacing.sm }}>
           <AppText variant="title">{heading}</AppText>
           <AppText variant="label" color={c.textMuted} style={{ marginTop: 2 }}>
-            {today.format("dddd, D MMMM")}
+            {due.length > 0 ? `${doneCount} of ${due.length} done · ` : ""}
+            {fromIso(today).format("dddd, D MMMM")}
           </AppText>
         </View>
 
-        {due.length === 0 ? (
+        {habits.length === 0 ? (
+          <View style={{ marginTop: spacing.md, gap: spacing.lg }}>
+            <AppText color={c.textMuted}>
+              Add a habit and it becomes a marker on Nim&apos;s trail. Every one you finish is a few metres higher.
+            </AppText>
+            <Button label="Add your first habit" onPress={() => router.push("/habit-form")} />
+          </View>
+        ) : due.length === 0 ? (
           <AppText color={c.textMuted} style={{ marginTop: spacing.md }}>
             Nothing is due. Nim is keeping the fire going until tomorrow.
           </AppText>
@@ -121,27 +132,32 @@ export default function TodayScreen() {
             <HabitStep
               key={habit.id}
               habit={habit}
-              count={countOn(habit.id, TODAY_ISO)}
-              done={!!done[habit.id]}
+              count={countOn(log, habit.id, today)}
+              done={isDone(habit, log, today)}
               reward={XP_PER_HABIT}
               hasNext={i < due.length - 1}
-              nextDone={i < due.length - 1 && !!done[due[i + 1].id]}
+              nextDone={i < due.length - 1 && isDone(due[i + 1], log, today)}
               onToggle={() => {
-                if (!done[habit.id]) setHop((h) => h + 1);
-                toggleDone(habit.id);
+                if (!isDone(habit, log, today)) setHop((h) => h + 1);
+                checkIn(habit.id, today);
               }}
+              onUndoOne={() => checkOut(habit.id, today)}
             />
           ))
         )}
 
-        <AppText variant="title" style={{ marginTop: spacing.xxl, marginBottom: spacing.md }}>
-          Quests
-        </AppText>
-        <View style={{ gap: spacing.md }}>
-          {QUESTS.map((quest) => (
-            <QuestCard key={quest.id} quest={quest} />
-          ))}
-        </View>
+        {quests.length > 0 && (
+          <>
+            <AppText variant="title" style={{ marginTop: spacing.xxl, marginBottom: spacing.md }}>
+              Quests
+            </AppText>
+            <View style={{ gap: spacing.md }}>
+              {quests.map((quest) => (
+                <QuestCard key={quest.id} quest={quest} />
+              ))}
+            </View>
+          </>
+        )}
       </View>
     </Screen>
   );

@@ -6,18 +6,30 @@ import { radius, spacing } from "@/theme/tokens";
 import { useTheme } from "@/theme/useTheme";
 import type { Weather } from "@/types";
 
-type Props = { weather: Weather; missedHabit?: string };
+type Props = {
+  weather: Weather;
+  missedHabits: string[];
+  // "yesterday", "on Monday"...
+  when?: string;
+  warmthLost: number;
+};
 
 /** The consequence of a missed habit, stated plainly. No guilt. */
-export function WeatherNote({ weather, missedHabit }: Props) {
+export function WeatherNote({ weather, missedHabits, when = "yesterday", warmthLost }: Props) {
   const { c } = useTheme();
   if (weather === "clear") return null;
 
   const storm = weather === "storm";
   const title = storm ? "Blizzard" : "Cold wind";
+  const what =
+    missedHabits.length === 0
+      ? "a habit"
+      : missedHabits.length === 1
+        ? missedHabits[0]
+        : `${missedHabits.length} habits`;
   const body = storm
-    ? "Two days missed in a row. Finish one habit to relight the fire."
-    : `You skipped ${missedHabit ?? "a habit"} yesterday and lost 4 warmth.`;
+    ? `You skipped ${what} ${when} and lost ${warmthLost} warmth. Finish one habit to relight the fire.`
+    : `You skipped ${what} ${when} and lost ${warmthLost} warmth.`;
 
   return (
     <View

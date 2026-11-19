@@ -13,7 +13,7 @@ import Svg, { Circle, Defs, Ellipse, LinearGradient, Line, Path, Rect, Stop } fr
 import { Campfire } from "@/components/world/Campfire";
 import { Nim } from "@/components/world/Nim";
 import { Snowfall } from "@/components/world/Snowfall";
-import type { GearTier } from "@/lib/gear";
+import type { GearTier } from "@/game/gear";
 import { nimColors } from "@/theme/tokens";
 import { useTheme } from "@/theme/useTheme";
 import type { Weather } from "@/types";

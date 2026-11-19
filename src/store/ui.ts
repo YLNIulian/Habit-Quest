@@ -1,61 +1,68 @@
-// UI-only state for the visual shell. No persistence, no real game rules.
 import { create } from "zustand";
 
-import { HABITS, PLAYER, TODAY_ISO, countOn } from "@/data/mock";
-import { GEAR_CAMPS } from "@/lib/gear";
+import { getSetting, setSetting } from "@/database/repositories/settingsRepository";
+import { GEAR_CAMPS } from "@/game/gear";
+import { campFromXp, xpForCamp } from "@/game/levels";
 import type { Scheme } from "@/theme/tokens";
 import type { Weather } from "@/types";
 
-const initialDone: Record<string, boolean> = Object.fromEntries(
-  HABITS.map((h) => [h.id, countOn(h.id, TODAY_ISO) >= h.targetPerDay]),
-);
-
-export const INITIAL_DONE_COUNT = Object.values(initialDone).filter(Boolean).length;
-
-/** A full-screen celebration. */
 export type Moment = { kind: "camp"; from: number; to: number } | { kind: "record"; days: number };
 
+const THEME_KEY = "theme";
+
 interface UiState {
-  /** null = follow the system setting. */
+  // null = use the phone setting
   themeOverride: Scheme | null;
   setThemeOverride: (scheme: Scheme | null) => void;
+  loadSettings: () => Promise<void>;
 
-  /** Which habits are finished today (mock toggle). */
-  done: Record<string, boolean>;
-  toggleDone: (habitId: string) => void;
-
-  /** Preview of the consequence states. */
-  weather: Weather;
-  setWeather: (weather: Weather) => void;
-
-  level: number;
   moment: Moment | null;
-  /** Preview: jumps to the next camp that unlocks gear, so every tier can be shown. */
-  previewCamp: () => void;
-  /** Preview: a new longest streak. */
-  previewRecord: () => void;
+  showMoment: (moment: Moment) => void;
   dismissMoment: () => void;
+
+  // dev only, not saved
+  weatherPreview: Weather | null;
+  setWeatherPreview: (weather: Weather | null) => void;
+  // extra metres added on top of the real ones
+  devBonusXp: number;
+  previewCamp: (realTotalXp: number) => void;
+  previewRecord: (best: number) => void;
+  resetPreview: () => void;
 }
 
-export const useUi = create<UiState>((set) => ({
+export const useUi = create<UiState>((set, get) => ({
   themeOverride: null,
-  setThemeOverride: (themeOverride) => set({ themeOverride }),
+  setThemeOverride: (themeOverride) => {
+    set({ themeOverride });
+    setSetting(THEME_KEY, themeOverride).catch(() => {});
+  },
+  loadSettings: async () => {
+    const theme = await getSetting(THEME_KEY);
+    if (theme === "dark" || theme === "light") set({ themeOverride: theme });
+  },
 
-  done: initialDone,
-  toggleDone: (habitId) => set((s) => ({ done: { ...s.done, [habitId]: !s.done[habitId] } })),
-
-  weather: PLAYER.weather,
-  setWeather: (weather) => set({ weather }),
-
-  level: PLAYER.level,
   moment: null,
-  previewCamp: () =>
-    set((s) => {
-      const next = GEAR_CAMPS.find((camp) => camp > s.level);
-      // Past the summit: loop back to the first unlock.
-      return { moment: next ? { kind: "camp", from: s.level, to: next } : { kind: "camp", from: 4, to: 5 } };
-    }),
-  previewRecord: () => set({ moment: { kind: "record", days: PLAYER.bestStreakDays + 1 } }),
-  dismissMoment: () =>
-    set((s) => (s.moment?.kind === "camp" ? { level: s.moment.to, moment: null } : { moment: null })),
+  showMoment: (moment) => set({ moment }),
+  dismissMoment: () => set({ moment: null }),
+
+  weatherPreview: null,
+  setWeatherPreview: (weatherPreview) => set({ weatherPreview }),
+  devBonusXp: 0,
+  // jumps to the next camp that gives new gear
+  previewCamp: (realTotalXp) => {
+    const total = realTotalXp + get().devBonusXp;
+    const level = campFromXp(total).level;
+    const next = GEAR_CAMPS.find((camp) => camp > level);
+    if (!next) {
+      // already at the top, start over
+      set({ devBonusXp: 0 });
+      return;
+    }
+    set({
+      devBonusXp: get().devBonusXp + xpForCamp(next) - total,
+      moment: { kind: "camp", from: level, to: next },
+    });
+  },
+  previewRecord: (best) => set({ moment: { kind: "record", days: best + 1 } }),
+  resetPreview: () => set({ devBonusXp: 0, weatherPreview: null }),
 }));

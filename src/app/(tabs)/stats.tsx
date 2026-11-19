@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { View, useWindowDimensions } from "react-native";
 
 import { AttributeRow } from "@/components/stats/AttributeRow";
@@ -7,7 +8,9 @@ import { AppText } from "@/components/ui/AppText";
 import { Button } from "@/components/ui/Button";
 import { Chip } from "@/components/ui/Chip";
 import { Screen } from "@/components/ui/Screen";
-import { ATTRIBUTES, PLAYER, dayRatio } from "@/data/mock";
+import { dayRatio } from "@/game/history";
+import { useJourney } from "@/hooks/useJourney";
+import { useHabitStore } from "@/store/useHabitStore";
 import { useUi } from "@/store/ui";
 import { layout, radius, spacing, type Scheme } from "@/theme/tokens";
 import { useTheme } from "@/theme/useTheme";
@@ -19,7 +22,8 @@ const APPEARANCE: { label: string; value: Scheme | null }[] = [
   { label: "Day", value: "light" },
 ];
 
-const WEATHER: { label: string; value: Weather }[] = [
+const WEATHER: { label: string; value: Weather | null }[] = [
+  { label: "Real", value: null },
   { label: "Clear", value: "clear" },
   { label: "Cold wind", value: "wind" },
   { label: "Blizzard", value: "storm" },
@@ -28,13 +32,11 @@ const WEATHER: { label: string; value: Weather }[] = [
 export default function StatsScreen() {
   const { c } = useTheme();
   const { width } = useWindowDimensions();
-  const level = useUi((s) => s.level);
+  const { player, attributes } = useJourney();
+  const habits = useHabitStore((s) => s.habits);
+  const log = useHabitStore((s) => s.log);
   const themeOverride = useUi((s) => s.themeOverride);
   const setThemeOverride = useUi((s) => s.setThemeOverride);
-  const weather = useUi((s) => s.weather);
-  const setWeather = useUi((s) => s.setWeather);
-  const previewCamp = useUi((s) => s.previewCamp);
-  const previewRecord = useUi((s) => s.previewRecord);
   const contentWidth = Math.min(width, layout.maxWidth) - layout.screenPadding * 2;
 
   return (
@@ -43,52 +45,38 @@ export default function StatsScreen() {
 
       {/* The one number that matters, then the two that explain it. */}
       <View style={{ flexDirection: "row", alignItems: "baseline", gap: 6, marginTop: spacing.md }}>
-        <AppText variant="numeral">{PLAYER.totalXp.toLocaleString("en-US")}</AppText>
+        <AppText variant="numeral">{player.totalXp.toLocaleString("en-US")}</AppText>
         <AppText variant="figure">m climbed</AppText>
       </View>
       <View style={{ flexDirection: "row", marginTop: spacing.lg }}>
-        <Figure value={String(level)} label="Camp" color={c.sunText} />
-        <Figure value={String(PLAYER.streakDays)} label="Day streak" color={c.accent} />
-        <Figure value={String(PLAYER.bestStreakDays)} label="Longest streak" />
+        <Figure value={String(player.level)} label="Camp" color={c.sunText} />
+        <Figure value={String(player.streakDays)} label="Day streak" color={c.accent} />
+        <Figure value={String(player.bestStreakDays)} label="Longest streak" />
       </View>
 
       <Section title="Attributes">
-        {ATTRIBUTES.map((stat) => (
+        {attributes.map((stat) => (
           <AttributeRow key={stat.attribute} stat={stat} />
         ))}
       </Section>
 
       <Section title="Last 12 weeks">
         <View style={{ marginTop: spacing.sm }}>
-          <Heatmap width={contentWidth} weeks={12} ratioFor={dayRatio} />
+          <Heatmap width={contentWidth} weeks={12} ratioFor={(iso) => dayRatio(habits, log, iso)} />
         </View>
       </Section>
 
       <Section title="Gear">
         <View style={{ marginTop: spacing.md }}>
-          <GearShelf level={level} />
+          <GearShelf level={player.level} />
         </View>
       </Section>
 
-      {/* Demo controls. Everything in this box is for previewing states, not part of the app. */}
-      <View
-        style={{
-          marginTop: spacing.xxxl,
-          padding: spacing.lg,
-          borderRadius: radius.lg,
-          borderWidth: 1,
-          borderColor: c.border,
-          borderStyle: "dashed",
-          gap: spacing.md,
-        }}
-      >
-        <View>
-          <AppText variant="heading">Preview tools</AppText>
-          <AppText variant="caption" color={c.textMuted}>
-            For the demo only. Not part of the final app.
-          </AppText>
-        </View>
-        <View accessibilityRole="radiogroup" style={{ flexDirection: "row", flexWrap: "wrap", gap: spacing.sm }}>
+      <Section title="Appearance">
+        <View
+          accessibilityRole="radiogroup"
+          style={{ flexDirection: "row", flexWrap: "wrap", gap: spacing.sm, marginTop: spacing.md }}
+        >
           {APPEARANCE.map((option) => (
             <Chip
               key={option.label}
@@ -98,22 +86,79 @@ export default function StatsScreen() {
             />
           ))}
         </View>
-        <View accessibilityRole="radiogroup" style={{ flexDirection: "row", flexWrap: "wrap", gap: spacing.sm }}>
-          {WEATHER.map((option) => (
-            <Chip
-              key={option.value}
-              label={option.label}
-              selected={weather === option.value}
-              onPress={() => setWeather(option.value)}
-            />
-          ))}
-        </View>
-        <View style={{ flexDirection: "row", gap: spacing.sm }}>
-          <Button label="Next camp" variant="ghost" size="sm" onPress={previewCamp} style={{ flex: 1 }} />
-          <Button label="Streak record" variant="ghost" size="sm" onPress={previewRecord} style={{ flex: 1 }} />
-        </View>
-      </View>
+      </Section>
+
+      {__DEV__ && <DevTools realTotalXp={player.totalXp} best={player.bestStreakDays} />}
     </Screen>
+  );
+}
+
+// only shows in development builds
+function DevTools({ realTotalXp, best }: { realTotalXp: number; best: number }) {
+  const { c } = useTheme();
+  const weatherPreview = useUi((s) => s.weatherPreview);
+  const setWeatherPreview = useUi((s) => s.setWeatherPreview);
+  const devBonusXp = useUi((s) => s.devBonusXp);
+  const previewCamp = useUi((s) => s.previewCamp);
+  const previewRecord = useUi((s) => s.previewRecord);
+  const resetPreview = useUi((s) => s.resetPreview);
+  const loadDemo = useHabitStore((s) => s.loadDemo);
+  const clearAll = useHabitStore((s) => s.clearAll);
+  const [confirmClear, setConfirmClear] = useState(false);
+
+  return (
+    <View
+      style={{
+        marginTop: spacing.xxxl,
+        padding: spacing.lg,
+        borderRadius: radius.lg,
+        borderWidth: 1,
+        borderColor: c.border,
+        borderStyle: "dashed",
+        gap: spacing.md,
+      }}
+    >
+      <View>
+        <AppText variant="heading">Dev tools</AppText>
+        <AppText variant="caption" color={c.textMuted}>
+          Only visible in development.
+        </AppText>
+      </View>
+      <View accessibilityRole="radiogroup" style={{ flexDirection: "row", flexWrap: "wrap", gap: spacing.sm }}>
+        {WEATHER.map((option) => (
+          <Chip
+            key={option.label}
+            label={option.label}
+            selected={weatherPreview === option.value}
+            onPress={() => setWeatherPreview(option.value)}
+          />
+        ))}
+      </View>
+      <View style={{ flexDirection: "row", gap: spacing.sm }}>
+        <Button label="Next camp" variant="ghost" size="sm" onPress={() => previewCamp(realTotalXp - devBonusXp)} style={{ flex: 1 }} />
+        <Button label="Streak record" variant="ghost" size="sm" onPress={() => previewRecord(best)} style={{ flex: 1 }} />
+      </View>
+      {(devBonusXp > 0 || weatherPreview) && (
+        <Button label={`Back to real data${devBonusXp > 0 ? ` (+${devBonusXp} m)` : ""}`} variant="ghost" size="sm" onPress={resetPreview} />
+      )}
+      <View style={{ flexDirection: "row", gap: spacing.sm }}>
+        <Button label="Load demo data" variant="ghost" size="sm" onPress={() => loadDemo()} style={{ flex: 1 }} />
+        <Button
+          label={confirmClear ? "Sure? Tap again" : "Clear all data"}
+          variant="ghost"
+          size="sm"
+          style={{ flex: 1 }}
+          onPress={() => {
+            if (!confirmClear) {
+              setConfirmClear(true);
+              return;
+            }
+            setConfirmClear(false);
+            clearAll();
+          }}
+        />
+      </View>
+    </View>
   );
 }
 

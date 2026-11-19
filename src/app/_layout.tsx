@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { Text, View } from "react-native";
 
 import { MomentOverlay } from "@/components/MomentOverlay";
+import { TrailReportGate } from "@/components/report/TrailReportGate";
 import { useAppReady } from "@/hooks/useAppReady";
 import { useTheme } from "@/theme/useTheme";
 
@@ -40,8 +41,11 @@ export default function RootLayout() {
       <StatusBar style={scheme === "dark" ? "light" : "dark"} />
       <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: c.bg } }}>
         <Stack.Screen name="(tabs)" />
+        <Stack.Screen name="habit/[id]" />
         <Stack.Screen name="habit-form" options={{ presentation: "modal" }} />
+        <Stack.Screen name="trail-report" options={{ presentation: "fullScreenModal", gestureEnabled: false }} />
       </Stack>
+      <TrailReportGate />
       <MomentOverlay />
     </View>
   );

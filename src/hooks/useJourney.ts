@@ -9,12 +9,13 @@ import { useUi } from "@/store/ui";
 export function useJourney(): Journey {
   const habits = useHabitStore((s) => s.habits);
   const log = useHabitStore((s) => s.log);
+  const settledThrough = useHabitStore((s) => s.settledThrough);
   const weatherPreview = useUi((s) => s.weatherPreview);
   const devBonusXp = useUi((s) => s.devBonusXp);
   const today = useToday();
 
   return useMemo(() => {
-    const journey = simulateJourney(habits, log, today);
+    const journey = simulateJourney(habits, log, today, settledThrough);
     if (!weatherPreview && !devBonusXp) return journey;
 
     // dev tools preview
@@ -25,5 +26,5 @@ export function useJourney(): Journey {
       Object.assign(player, campFromXp(player.totalXp));
     }
     return { ...journey, player };
-  }, [habits, log, today, weatherPreview, devBonusXp]);
+  }, [habits, log, today, settledThrough, weatherPreview, devBonusXp]);
 }

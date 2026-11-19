@@ -45,6 +45,14 @@ export const MIGRATIONS: string[] = [
     value TEXT NOT NULL
   );
   `,
+  // 2: outfit shop
+  `
+  CREATE TABLE IF NOT EXISTS purchases (
+    item_id   TEXT PRIMARY KEY NOT NULL,
+    price     INTEGER NOT NULL,
+    bought_at TEXT NOT NULL
+  );
+  `,
 ];
 
 export interface HabitRow {

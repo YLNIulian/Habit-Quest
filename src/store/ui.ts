@@ -27,6 +27,8 @@ interface UiState {
   devBonusXp: number;
   previewCamp: (realTotalXp: number) => void;
   previewRecord: (best: number) => void;
+  devBonusCoins: number;
+  addDevCoins: (amount: number) => void;
   resetPreview: () => void;
 }
 
@@ -64,5 +66,7 @@ export const useUi = create<UiState>((set, get) => ({
     });
   },
   previewRecord: (best) => set({ moment: { kind: "record", days: best + 1 } }),
-  resetPreview: () => set({ devBonusXp: 0, weatherPreview: null }),
+  devBonusCoins: 0,
+  addDevCoins: (amount) => set((s) => ({ devBonusCoins: s.devBonusCoins + amount })),
+  resetPreview: () => set({ devBonusXp: 0, weatherPreview: null, devBonusCoins: 0 }),
 }));

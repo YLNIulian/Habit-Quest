@@ -53,6 +53,8 @@ export async function loadDemoData(): Promise<void> {
       for (let i = 0; i < habits.length; i++) {
         const habit = habits[i];
         if (!isScheduled(habit, iso)) continue;
+        // yesterday's meditation is left open, so the trail report has something to show
+        if (back === 1 && habit.name === "Meditate") continue;
         // gets better over time
         const consistency = 0.55 + 0.4 * (1 - back / HISTORY_DAYS);
         const r = rand(back * 7 + i * 13 + 1);

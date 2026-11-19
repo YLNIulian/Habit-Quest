@@ -70,4 +70,6 @@ export interface HabitStreak {
   current: number;
   best: number;
   totalDone: number;
+  // due days so far (today only counts once it's done)
+  dueDays: number;
 }

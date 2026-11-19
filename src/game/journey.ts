@@ -4,6 +4,11 @@ import { dueOn, firstDay, isDone } from "@/game/history";
 import { attributeFromXp, campFromXp } from "@/game/levels";
 import { questsFor, weeklyPlan, type WeeklyPlan } from "@/game/quests";
 import {
+  COINS_DAILY_QUEST,
+  COINS_PER_CAMP,
+  COINS_PER_HABIT,
+  COINS_STREAK_WEEK,
+  COINS_WEEKLY_QUEST,
   DAILY_QUEST_REWARD,
   MAX_WARMTH,
   RETREAT_WARMTH,
@@ -21,6 +26,8 @@ export interface Journey {
   player: PlayerState;
   attributes: AttributeStat[];
   quests: Quest[];
+  // all coins earned so far (spending is tracked separately)
+  coinsEarned: number;
 }
 
 interface ClosedDay {
@@ -28,12 +35,22 @@ interface ClosedDay {
   missed: string[];
 }
 
-export function simulateJourney(habits: Habit[], log: CompletionLog, today: IsoDate): Journey {
+// settledThrough: last day the user already "closed" with Start the day.
+// misses after it don't cost anything yet. undefined = every past day counts.
+export function simulateJourney(
+  habits: Habit[],
+  log: CompletionLog,
+  today: IsoDate,
+  settledThrough?: IsoDate | null,
+): Journey {
   let totalXp = 0;
   let warmth = MAX_WARMTH;
   let streak = 0;
   let best = 0;
   let retreats = 0;
+  let coins = 0;
+  // highest camp ever reached, so a retreat doesn't pay the same camp twice
+  let topCamp = 1;
   const attributeXp: Record<Attribute, number> = { vigor: 0, focus: 0, craft: 0, calm: 0 };
 
   // last two past days that had habits due (used for the weather)
@@ -54,9 +71,13 @@ export function simulateJourney(habits: Habit[], log: CompletionLog, today: IsoD
     const done = due.filter((h) => isDone(h, log, iso));
 
     totalXp += done.length * XP_PER_HABIT;
+    coins += done.length * COINS_PER_HABIT;
     for (const h of done) attributeXp[h.attribute] += XP_PER_HABIT;
 
-    if (due.length > 0 && done.length === due.length) totalXp += DAILY_QUEST_REWARD;
+    if (due.length > 0 && done.length === due.length) {
+      totalXp += DAILY_QUEST_REWARD;
+      coins += COINS_DAILY_QUEST;
+    }
 
     const monday = weekStart(iso);
     if (monday !== week) {
@@ -70,8 +91,15 @@ export function simulateJourney(habits: Habit[], log: CompletionLog, today: IsoD
       weekProgress += done.filter((h) => h.attribute === attribute).length;
       if (!weekRewarded && weekProgress >= plan.goal) {
         totalXp += WEEKLY_QUEST_REWARD;
+        coins += COINS_WEEKLY_QUEST;
         weekRewarded = true;
       }
+    }
+
+    const camp = campFromXp(totalXp).level;
+    if (camp > topCamp) {
+      coins += (camp - topCamp) * COINS_PER_CAMP;
+      topCamp = camp;
     }
 
     if (iso === today) {
@@ -82,9 +110,13 @@ export function simulateJourney(habits: Habit[], log: CompletionLog, today: IsoD
 
     if (due.length === 0) continue;
     const missed = due.filter((h) => !isDone(h, log, iso)).map((h) => h.id);
+    const settled = !settledThrough || iso <= settledThrough;
+    // waiting for the trail report, nothing happens yet
+    if (missed.length > 0 && !settled) continue;
     if (missed.length === 0) {
       streak++;
       best = Math.max(best, streak);
+      if (streak % 7 === 0) coins += COINS_STREAK_WEEK;
       warmth = Math.min(MAX_WARMTH, warmth + WARMTH_PER_CLEAN_DAY);
     } else {
       streak = 0;
@@ -104,6 +136,7 @@ export function simulateJourney(habits: Habit[], log: CompletionLog, today: IsoD
   const todayClean = todayDue > 0 && todayDone === todayDue;
   const streakDays = streak + (todayClean ? 1 : 0);
   const bestStreakDays = Math.max(best, streakDays);
+  if (todayClean && streakDays % 7 === 0) coins += COINS_STREAK_WEEK;
 
   const missedHabitIds = last?.missed ?? [];
   const camp = campFromXp(totalXp);
@@ -126,6 +159,7 @@ export function simulateJourney(habits: Habit[], log: CompletionLog, today: IsoD
     },
     attributes: ATTRIBUTES.map((attribute) => ({ attribute, ...attributeFromXp(attributeXp[attribute]) })),
     quests: questsFor(habits, log, today),
+    coinsEarned: coins,
   };
 }
 

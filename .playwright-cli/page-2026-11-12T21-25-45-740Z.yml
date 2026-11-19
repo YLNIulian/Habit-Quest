@@ -1,0 +1,37 @@
+- generic [ref=f1e9]:
+  - generic [ref=f1e342]:
+    - generic [ref=f1e343]: Stats
+    - generic [ref=f1e344]:
+      - generic [ref=f1e345]:
+        - generic [ref=f1e346]: "12"
+        - generic [ref=f1e347]: Day streak
+      - generic [ref=f1e348]:
+        - generic [ref=f1e349]: "21"
+        - generic [ref=f1e350]: Best streak
+      - generic [ref=f1e351]:
+        - generic [ref=f1e352]: "302"
+        - generic [ref=f1e353]: Runes lit
+    - generic [ref=f1e354]: Last 12 weeks
+    - generic "Habit history for the last 12 weeks" [ref=f1e355]:
+      - generic [ref=f1e356]:
+        - generic [ref=f1e357]: Aug
+        - generic [ref=f1e360]: Sep
+        - generic [ref=f1e365]: Oct
+        - generic [ref=f1e370]: Nov
+      - generic [ref=f1e374]:
+        - generic [ref=f1e375]: M
+        - generic [ref=f1e378]: W
+        - generic [ref=f1e381]: F
+        - generic [ref=f1e384]: S
+      - generic [ref=f1e482]:
+        - generic [ref=f1e483]: Less
+        - generic [ref=f1e489]: More
+    - generic [ref=f1e490]: Appearance
+    - radiogroup [ref=f1e491]:
+      - radio "System" [ref=f1e492] [cursor=pointer]
+      - radio "Dark" [ref=f1e495] [cursor=pointer]
+      - radio "Light" [ref=f1e498] [cursor=pointer]
+  - generic [ref=f1e126]:
+    - tab "Today" [ref=f1e127] [cursor=pointer]
+    - tab "Habits" [ref=f1e131] [cursor=pointer]
+    - tab "Stats" [active] [ref=f1e135] [cursor=pointer]

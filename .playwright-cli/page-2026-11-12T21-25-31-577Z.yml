@@ -1,0 +1,51 @@
+- generic [ref=f1e234]:
+  - generic [ref=f1e235]:
+    - generic [ref=f1e236]: Edit habit
+    - button "Cancel" [ref=f1e237] [cursor=pointer]
+  - generic [ref=f1e246]:
+    - generic [ref=f1e247]: Name
+    - textbox "Habit name" [ref=f1e248]:
+      - /placeholder: Drink water
+      - text: Morning run
+  - generic [ref=f1e249]:
+    - generic [ref=f1e250]: Rune
+    - generic [ref=f1e251]:
+      - radio "ember rune" [ref=f1e252] [cursor=pointer]
+      - radio "tide rune" [ref=f1e256] [cursor=pointer]
+      - radio "leaf rune" [ref=f1e260] [cursor=pointer]
+      - radio "moon rune" [ref=f1e264] [cursor=pointer]
+      - radio "peak rune" [ref=f1e268] [cursor=pointer]
+      - radio "eye rune" [ref=f1e272] [cursor=pointer]
+      - radio "star rune" [ref=f1e276] [cursor=pointer]
+      - radio "knot rune" [ref=f1e280] [cursor=pointer]
+  - generic [ref=f1e284]:
+    - generic [ref=f1e285]: Color
+    - generic [ref=f1e286]:
+      - radio "mint" [ref=f1e287] [cursor=pointer]
+      - radio "aqua" [ref=f1e290] [cursor=pointer]
+      - radio "sky" [ref=f1e293] [cursor=pointer]
+      - radio "violet" [ref=f1e296] [cursor=pointer]
+      - radio "lime" [ref=f1e299] [cursor=pointer]
+      - radio "blossom" [ref=f1e302] [cursor=pointer]
+  - generic [ref=f1e305]:
+    - generic [ref=f1e306]: How often
+    - generic [ref=f1e307]:
+      - radio "Every day" [ref=f1e308] [cursor=pointer]
+      - radio "Chosen days" [ref=f1e311] [cursor=pointer]
+    - generic [ref=f1e314]:
+      - checkbox "Mon" [ref=f1e315] [cursor=pointer]:
+        - generic [ref=f1e316]: M
+      - checkbox "Tue" [ref=f1e318] [cursor=pointer]:
+        - generic [ref=f1e319]: T
+      - checkbox "Wed" [ref=f1e321] [cursor=pointer]:
+        - generic [ref=f1e322]: W
+      - checkbox "Thu" [ref=f1e324] [cursor=pointer]:
+        - generic [ref=f1e325]: T
+      - checkbox "Fri" [ref=f1e327] [cursor=pointer]:
+        - generic [ref=f1e328]: F
+      - checkbox "Sat" [ref=f1e330] [cursor=pointer]:
+        - generic [ref=f1e331]: S
+      - checkbox "Sun" [ref=f1e333] [cursor=pointer]:
+        - generic [ref=f1e334]: S
+  - button "Save habit" [ref=f1e336] [cursor=pointer]
+  - generic [ref=f1e339]: Preview only. Saving arrives with local storage.

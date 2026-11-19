@@ -1,0 +1,37 @@
+- generic [ref=f1e9]:
+  - generic [ref=f1e174]:
+    - generic [ref=f1e175]:
+      - generic [ref=f1e176]: Habits
+      - button "Add habit" [ref=f1e177] [cursor=pointer]
+    - button "Edit Drink water" [ref=f1e180] [cursor=pointer]:
+      - generic [ref=f1e181]:
+        - generic [ref=f1e185]:
+          - generic [ref=f1e186]: Drink water
+          - generic [ref=f1e187]: Every day
+        - generic [ref=f1e188]: 8 a day
+    - button "Edit Read 20 pages" [ref=f1e189] [cursor=pointer]:
+      - generic [ref=f1e194]:
+        - generic [ref=f1e195]: Read 20 pages
+        - generic [ref=f1e196]: Every day
+    - button "Edit Morning run" [ref=f1e197] [cursor=pointer]:
+      - generic [ref=f1e202]:
+        - generic [ref=f1e203]: Morning run
+        - generic [ref=f1e204]: Mon, Wed, Fri
+    - button "Edit Meditate" [ref=f1e205] [cursor=pointer]:
+      - generic [ref=f1e210]:
+        - generic [ref=f1e211]: Meditate
+        - generic [ref=f1e212]: Every day
+    - button "Edit Practice guitar" [ref=f1e213] [cursor=pointer]:
+      - generic [ref=f1e218]:
+        - generic [ref=f1e219]: Practice guitar
+        - generic [ref=f1e220]: Tue, Thu, Sat
+    - button "Edit Stretch" [ref=f1e221] [cursor=pointer]:
+      - generic [ref=f1e222]:
+        - generic [ref=f1e226]:
+          - generic [ref=f1e227]: Stretch
+          - generic [ref=f1e228]: Every day
+        - generic [ref=f1e229]: 2 a day
+  - generic [ref=f1e126]:
+    - tab "Today" [ref=f1e127] [cursor=pointer]
+    - tab "Habits" [ref=f1e131] [cursor=pointer]
+    - tab "Stats" [ref=f1e135] [cursor=pointer]

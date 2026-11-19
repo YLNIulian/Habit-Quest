@@ -1,0 +1,53 @@
+- generic [ref=f6e9]:
+  - generic [ref=f6e291]:
+    - generic [ref=f6e292]:
+      - generic [ref=f6e293]:
+        - generic [ref=f6e294]: Habits
+        - generic [ref=f6e295]: 6 markers on your route
+      - button "Add habit" [ref=f6e296] [cursor=pointer]
+    - generic [ref=f6e299]:
+      - button "Edit Drink water" [ref=f6e300] [cursor=pointer]:
+        - generic [ref=f6e301]:
+          - generic [ref=f6e305]:
+            - generic [ref=f6e306]: Drink water
+            - generic [ref=f6e307]: Every day, 8 a day
+          - generic [ref=f6e308]: Vigor
+      - button "Edit Read 20 pages" [ref=f6e321] [cursor=pointer]:
+        - generic [ref=f6e322]:
+          - generic [ref=f6e326]:
+            - generic [ref=f6e327]: Read 20 pages
+            - generic [ref=f6e328]: Every day
+          - generic [ref=f6e329]: Focus
+      - button "Edit Morning run" [ref=f6e342] [cursor=pointer]:
+        - generic [ref=f6e343]:
+          - generic [ref=f6e347]:
+            - generic [ref=f6e348]: Morning run
+            - generic [ref=f6e349]: Mon, Wed, Fri
+          - generic [ref=f6e350]: Vigor
+      - button "Edit Meditate" [ref=f6e367] [cursor=pointer]:
+        - generic [ref=f6e368]:
+          - generic [ref=f6e372]:
+            - generic [ref=f6e373]: Meditate
+            - generic [ref=f6e374]: Every day
+          - generic [ref=f6e375]: Calm
+      - button "Edit Practice guitar" [ref=f6e388] [cursor=pointer]:
+        - generic [ref=f6e389]:
+          - generic [ref=f6e394]:
+            - generic [ref=f6e395]: Practice guitar
+            - generic [ref=f6e396]: Tue, Thu, Sat
+          - generic [ref=f6e397]: Craft
+      - button "Edit Stretch" [ref=f6e414] [cursor=pointer]:
+        - generic [ref=f6e415]:
+          - generic [ref=f6e419]:
+            - generic [ref=f6e420]: Stretch
+            - generic [ref=f6e421]: Every day, 2 a day
+          - generic [ref=f6e422]: Vigor
+    - generic [ref=f6e435]:
+      - generic [ref=f6e436]: Done
+      - generic [ref=f6e439]: Missed
+      - generic [ref=f6e442]: Not due
+      - generic [ref=f6e446]: Last 7 days
+  - generic [ref=f6e276]:
+    - tab "Today" [ref=f6e277] [cursor=pointer]
+    - tab "Habits" [ref=f6e281] [cursor=pointer]
+    - tab "Stats" [ref=f6e285] [cursor=pointer]

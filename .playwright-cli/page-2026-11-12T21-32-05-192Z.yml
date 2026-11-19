@@ -1,0 +1,51 @@
+- generic [ref=f5e4]:
+  - generic [ref=f5e9]:
+    - generic [ref=f5e13]:
+      - generic [ref=f5e14]: Thursday, 12 November
+      - generic [ref=f5e15]: 4 runes left to light
+      - generic [ref=f5e16]:
+        - generic [ref=f5e18]:
+          - generic [ref=f5e19]: Level
+          - generic [ref=f5e20]: "9"
+          - generic [ref=f5e21]: Kindle
+        - generic [ref=f5e33]:
+          - progressbar [ref=f5e34]
+          - generic [ref=f5e37]:
+            - generic [ref=f5e38]: 340 / 500 XP
+            - generic [ref=f5e39]: 160 to level 10
+        - generic "Health 42 of 50" [ref=f5e41]:
+          - generic [ref=f5e42]: HP
+          - generic [ref=f5e54]: 42 / 50
+      - generic [ref=f5e55]:
+        - checkbox "Drink water, 5 of 8" [ref=f5e56] [cursor=pointer]:
+          - generic [ref=f5e57]:
+            - generic [ref=f5e67]: Drink water
+            - generic [ref=f5e68]: 5 of 8
+        - checkbox "Read 20 pages, Lit" [ref=f5e69] [cursor=pointer]:
+          - generic [ref=f5e70]:
+            - generic [ref=f5e80]: Read 20 pages
+            - generic [ref=f5e81]: Lit
+        - checkbox "Meditate, Tap to light" [ref=f5e82] [cursor=pointer]:
+          - generic [ref=f5e83]:
+            - generic [ref=f5e93]: Meditate
+            - generic [ref=f5e94]: Tap to light
+        - checkbox "Practice guitar, Tap to light" [ref=f5e95] [cursor=pointer]:
+          - generic [ref=f5e96]:
+            - generic [ref=f5e106]: Practice guitar
+            - generic [ref=f5e107]: Tap to light
+        - checkbox "Stretch, 1 of 2" [ref=f5e108] [cursor=pointer]:
+          - generic [ref=f5e109]:
+            - generic [ref=f5e119]: Stretch
+            - generic [ref=f5e120]: 1 of 2
+      - generic [ref=f5e121]:
+        - button "Preview level up" [active] [ref=f5e122] [cursor=pointer]
+        - generic [ref=f5e125]: Test button, not part of the final app
+    - generic [ref=f5e126]:
+      - tab "Today" [ref=f5e127] [cursor=pointer]
+      - tab "Habits" [ref=f5e131] [cursor=pointer]
+      - tab "Stats" [ref=f5e135] [cursor=pointer]
+  - button "Level 10 reached. Continue" [ref=f5e148] [cursor=pointer]:
+    - generic [ref=f5e163]:
+      - generic [ref=f5e164]: Level 10
+      - generic [ref=f5e165]: Your ember grew into a Blaze
+      - generic [ref=f5e166]: Tap anywhere to continue

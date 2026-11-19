@@ -1,0 +1,78 @@
+- generic [ref=f7e9]:
+  - generic [ref=f7e13]:
+    - generic [ref=f7e92]:
+      - generic "Camp 10, 2355 metres" [ref=f7e938]:
+        - generic [ref=f7e94]: Camp 10
+        - generic [ref=f7e95]:
+          - generic [ref=f7e96]: 2,355
+          - generic [ref=f7e97]: m
+      - generic [ref=f7e98]:
+        - generic "Warmth 14" [ref=f7e939]: "14"
+        - generic "Day streak 12" [ref=f7e103]: "12"
+    - generic [ref=f7e107]:
+      - generic [ref=f7e108]:
+        - generic [ref=f7e109]:
+          - progressbar [ref=f7e110]
+          - generic [ref=f7e114]: "11"
+        - generic [ref=f7e116]:
+          - generic [ref=f7e117]: 145 m to Camp 11
+          - generic [ref=f7e118]: 355 of 500 m
+      - alert [ref=f7e120]:
+        - generic [ref=f7e124]:
+          - generic [ref=f7e125]: Blizzard
+          - generic [ref=f7e126]: Two days missed in a row. Finish one habit to relight the fire.
+      - generic [ref=f7e127]:
+        - generic [ref=f7e128]: 3 steps left today
+        - generic [ref=f7e129]: Friday, 13 November
+      - checkbox "Drink water, 5 of 8" [ref=f7e130] [cursor=pointer]:
+        - generic [ref=f7e131]:
+          - generic [ref=f7e140]:
+            - generic [ref=f7e141]: Drink water
+            - generic [ref=f7e142]: Vigor
+          - generic [ref=f7e155]: +15 m
+      - checkbox "Read 20 pages, climbed" [ref=f7e162] [cursor=pointer]:
+        - generic [ref=f7e163]:
+          - generic [ref=f7e172]:
+            - generic [ref=f7e173]: Read 20 pages
+            - generic [ref=f7e174]: Focus
+          - generic [ref=f7e178]: +15 m
+      - checkbox "Morning run, not done" [ref=f7e185] [cursor=pointer]:
+        - generic [ref=f7e186]:
+          - generic [ref=f7e195]:
+            - generic [ref=f7e196]: Morning run
+            - generic [ref=f7e197]: Vigor
+          - generic [ref=f7e201]: +15 m
+      - checkbox "Meditate, climbed" [ref=f7e208] [cursor=pointer]:
+        - generic [ref=f7e209]:
+          - generic [ref=f7e218]:
+            - generic [ref=f7e219]: Meditate
+            - generic [ref=f7e220]: Calm
+          - generic [ref=f7e224]: +15 m
+      - checkbox "Stretch, 1 of 2" [ref=f7e231] [cursor=pointer]:
+        - generic [ref=f7e232]:
+          - generic [ref=f7e237]:
+            - generic [ref=f7e238]: Stretch
+            - generic [ref=f7e239]: Vigor
+          - generic [ref=f7e246]: +15 m
+      - generic [ref=f7e253]: Quests
+      - generic [ref=f7e254]:
+        - 'generic "Quest: The North Ridge. Finish 5 Focus habits this week. 3 of 5. Reward 120 metres." [ref=f7e255]':
+          - generic [ref=f7e256]:
+            - generic [ref=f7e257]:
+              - generic [ref=f7e258]: The North Ridge
+              - generic [ref=f7e259]: Finish 5 Focus habits this week
+            - generic [ref=f7e260]: +120 m
+          - generic [ref=f7e268]:
+            - generic [ref=f7e269]: 3 of 5 done
+            - generic [ref=f7e270]: 3 days left
+        - 'generic "Quest: First light. Finish every habit due today. 1 of 4. Reward 40 metres." [ref=f7e274]':
+          - generic [ref=f7e275]:
+            - generic [ref=f7e276]:
+              - generic [ref=f7e277]: First light
+              - generic [ref=f7e278]: Finish every habit due today
+            - generic [ref=f7e279]: +40 m
+          - generic [ref=f7e286]: 1 of 4 done
+  - generic [ref=f7e288]:
+    - tab "Today" [active] [ref=f7e289] [cursor=pointer]
+    - tab "Habits" [ref=f7e293] [cursor=pointer]
+    - tab "Stats" [ref=f7e297] [cursor=pointer]

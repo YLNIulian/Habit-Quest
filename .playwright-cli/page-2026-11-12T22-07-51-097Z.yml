@@ -1,0 +1,81 @@
+- generic [ref=f3e1]:
+  - generic [ref=f3e9]:
+    - generic [ref=f3e261]:
+      - generic [ref=f3e330]:
+        - generic "Camp 9, 2355 metres" [ref=f3e331]:
+          - generic [ref=f3e332]: Camp 9
+          - generic [ref=f3e333]:
+            - generic [ref=f3e334]: 2,355
+            - generic [ref=f3e335]: m
+        - generic [ref=f3e336]:
+          - generic "Warmth 38" [ref=f3e337]: "38"
+          - generic "Day streak 12" [ref=f3e341]: "12"
+      - generic [ref=f3e345]:
+        - generic [ref=f3e346]:
+          - progressbar [ref=f3e348]
+          - generic [ref=f3e354]:
+            - generic [ref=f3e355]: 145 m to Camp 10
+            - generic [ref=f3e356]: 355 of 500 m
+        - alert [ref=f3e358]:
+          - generic [ref=f3e362]:
+            - generic [ref=f3e363]: Cold wind
+            - generic [ref=f3e364]: You skipped Meditate yesterday and lost 4 warmth.
+        - generic [ref=f3e365]:
+          - generic [ref=f3e366]: 3 steps left today
+          - generic [ref=f3e367]: Friday, 13 November
+        - checkbox "Drink water, 5 of 8" [ref=f3e368] [cursor=pointer]:
+          - generic [ref=f3e369]:
+            - generic [ref=f3e378]:
+              - generic [ref=f3e379]: Drink water
+              - generic [ref=f3e380]: Vigor
+            - generic [ref=f3e393]: +15 m
+        - checkbox "Read 20 pages, climbed" [ref=f3e400] [cursor=pointer]:
+          - generic [ref=f3e401]:
+            - generic [ref=f3e408]:
+              - generic [ref=f3e409]: Read 20 pages
+              - generic [ref=f3e410]: Focus
+            - generic [ref=f3e414]: +15 m
+        - checkbox "Morning run, not done" [ref=f3e421] [cursor=pointer]:
+          - generic [ref=f3e422]:
+            - generic [ref=f3e431]:
+              - generic [ref=f3e432]: Morning run
+              - generic [ref=f3e433]: Vigor
+            - generic [ref=f3e437]: +15 m
+        - checkbox "Meditate, climbed" [active] [ref=f3e444] [cursor=pointer]:
+          - generic [ref=f3e445]:
+            - generic [ref=f3e452]:
+              - generic [ref=f3e453]: Meditate
+              - generic [ref=f3e454]: Calm
+            - generic [ref=f3e458]: +15 m
+        - checkbox "Stretch, 1 of 2" [ref=f3e465] [cursor=pointer]:
+          - generic [ref=f3e466]:
+            - generic [ref=f3e471]:
+              - generic [ref=f3e472]: Stretch
+              - generic [ref=f3e473]: Vigor
+            - generic [ref=f3e480]: +15 m
+        - generic [ref=f3e487]: Quests
+        - generic [ref=f3e488]:
+          - 'generic "Quest: The North Ridge. Finish 5 Focus habits this week. 3 of 5. Reward 120 metres." [ref=f3e489]':
+            - generic [ref=f3e490]:
+              - generic [ref=f3e491]:
+                - generic [ref=f3e492]: The North Ridge
+                - generic [ref=f3e493]: Finish 5 Focus habits this week
+              - generic [ref=f3e494]: +120 m
+            - generic [ref=f3e502]:
+              - generic [ref=f3e503]: 3 of 5 done
+              - generic [ref=f3e504]: 3 days left
+          - 'generic "Quest: First light. Finish every habit due today. 1 of 4. Reward 40 metres." [ref=f3e508]':
+            - generic [ref=f3e509]:
+              - generic [ref=f3e510]:
+                - generic [ref=f3e511]: First light
+                - generic [ref=f3e512]: Finish every habit due today
+              - generic [ref=f3e513]: +40 m
+            - generic [ref=f3e520]: 1 of 4 done
+    - generic [ref=f3e247]:
+      - tab "Today" [ref=f3e248] [cursor=pointer]
+      - tab "Habits" [ref=f3e252] [cursor=pointer]
+      - tab "Stats" [ref=f3e256] [cursor=pointer]
+  - button "2 A tree hydrated but some attributes of t" [ref=f3e523] [cursor=pointer]:
+    - generic [ref=f3e524]: "2"
+    - generic [ref=f3e526]: A tree hydrated but some attributes of t
+    - button [ref=f3e527]

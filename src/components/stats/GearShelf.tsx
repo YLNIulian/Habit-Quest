@@ -2,7 +2,7 @@ import { View } from "react-native";
 
 import { Glyph, type GlyphName } from "@/components/icons/Glyph";
 import { AppText } from "@/components/ui/AppText";
-import { GEAR, type GearTier } from "@/lib/gear";
+import { GEAR, type GearTier } from "@/game/gear";
 import { useTheme } from "@/theme/useTheme";
 
 const ICON: Record<GearTier, GlyphName> = { 1: "scarf", 2: "lantern", 3: "axe", 4: "cloak", 5: "pennant" };

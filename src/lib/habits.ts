@@ -1,16 +1,12 @@
 import type { Dayjs } from "dayjs";
 
-import type { Attribute, Frequency, Habit, Weekday } from "@/types";
+import { weekdayOf } from "@/lib/dates";
+import type { Attribute, Frequency, Habit, IsoDate } from "@/types";
 
 export const WEEKDAY_SHORT = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"] as const;
 export const WEEKDAY_INITIAL = ["M", "T", "W", "T", "F", "S", "S"] as const;
 
-/** dayjs uses Sunday = 0; the app uses Monday = 0. */
-export function weekdayOf(date: Dayjs): Weekday {
-  return ((date.day() + 6) % 7) as Weekday;
-}
-
-export function isDueOn(habit: Habit, date: Dayjs): boolean {
+export function isDueOn(habit: Habit, date: Dayjs | IsoDate): boolean {
   return habit.frequency.kind === "daily" || habit.frequency.days.includes(weekdayOf(date));
 }
 
@@ -32,10 +28,11 @@ export const ATTRIBUTE_LABEL: Record<Attribute, string> = {
   calm: "Calm",
 };
 
-/** What each attribute is for, shown where a habit is assigned to one. */
 export const ATTRIBUTE_HINT: Record<Attribute, string> = {
   vigor: "Body and movement",
   focus: "Reading and study",
   craft: "Making and practice",
   calm: "Rest and stillness",
 };
+
+export const MAX_PER_DAY = 12;

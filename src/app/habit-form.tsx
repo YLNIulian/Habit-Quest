@@ -9,30 +9,39 @@ import { AppText } from "@/components/ui/AppText";
 import { Button } from "@/components/ui/Button";
 import { Chip } from "@/components/ui/Chip";
 import { PressableScale } from "@/components/ui/PressableScale";
-import { HABITS } from "@/data/mock";
 import {
   ATTRIBUTES,
   ATTRIBUTE_HINT,
   ATTRIBUTE_LABEL,
+  MAX_PER_DAY,
   WEEKDAY_INITIAL,
   WEEKDAY_SHORT,
 } from "@/lib/habits";
 import { haptic } from "@/lib/haptics";
+import { useHabitStore } from "@/store/useHabitStore";
 import { layout, radius, spacing, type as typeScale } from "@/theme/tokens";
 import { useTheme } from "@/theme/useTheme";
-import type { Attribute, BlazeColor, BlazeShape, Weekday } from "@/types";
+import type { Attribute, BlazeColor, BlazeShape, HabitDraft, Weekday } from "@/types";
 
 const WEEKDAYS: Weekday[] = [0, 1, 2, 3, 4, 5, 6];
 const COLOR_NAME: Record<BlazeColor, string> = { red: "Red", yellow: "Yellow", blue: "Blue" };
+const MAX_NAME = 40;
 
-// UI only: nothing is saved yet. "Save habit" just closes the sheet.
 export default function HabitFormScreen() {
   const { c, shadow } = useTheme();
   const insets = useSafeAreaInsets();
-  const { id } = useLocalSearchParams<{ id?: string }>();
-  const editing = HABITS.find((h) => h.id === id);
+  const { id } = useLocalSearchParams<{ id?: string | string[] }>();
+  const habitId = Array.isArray(id) ? id[0] : id;
+  const editing = useHabitStore((s) => (habitId ? s.habits.find((h) => h.id === habitId) : undefined));
+  const addHabit = useHabitStore((s) => s.addHabit);
+  const updateHabit = useHabitStore((s) => s.updateHabit);
+  const deleteHabit = useHabitStore((s) => s.deleteHabit);
 
   const [name, setName] = useState(editing?.name ?? "");
+  const [nameError, setNameError] = useState<string | null>(null);
+  const [perDay, setPerDay] = useState(editing?.targetPerDay ?? 1);
+  const [saving, setSaving] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState(false);
   const [shape, setShape] = useState<BlazeShape>(editing?.shape ?? "band");
   const [color, setColor] = useState<BlazeColor>(editing?.color ?? "red");
   const [attribute, setAttribute] = useState<Attribute>(editing?.attribute ?? "vigor");
@@ -47,7 +56,54 @@ export default function HabitFormScreen() {
   };
   const toggleDay = (day: Weekday) => {
     haptic.select();
-    setDays((d) => (d.includes(day) ? d.filter((x) => x !== day) : [...d, day]));
+    setDays((d) => {
+      if (d.includes(day)) {
+        if (d.length === 1) return d;
+        return d.filter((x) => x !== day);
+      }
+      return [...d, day];
+    });
+  };
+
+  const save = async () => {
+    const trimmed = name.trim();
+    if (!trimmed) {
+      haptic.tap();
+      setNameError("Give the habit a name");
+      return;
+    }
+    const draft: HabitDraft = {
+      name: trimmed,
+      shape,
+      color,
+      attribute,
+      frequency: daily ? { kind: "daily" } : { kind: "weekly", days: [...days].sort((a, b) => a - b) },
+      targetPerDay: perDay,
+      reminderTime: editing?.reminderTime ?? null,
+    };
+    setSaving(true);
+    try {
+      if (editing) await updateHabit(editing.id, draft);
+      else await addHabit(draft);
+      haptic.success();
+      router.back();
+    } catch {
+      setSaving(false);
+      setNameError("Could not save, try again");
+    }
+  };
+
+  const remove = async () => {
+    if (!editing) return;
+    // first tap asks, second tap deletes
+    if (!confirmDelete) {
+      haptic.select();
+      setConfirmDelete(true);
+      return;
+    }
+    haptic.heavy();
+    await deleteHabit(editing.id);
+    router.back();
   };
 
   return (
@@ -101,7 +157,12 @@ export default function HabitFormScreen() {
       <Field label="Name">
         <TextInput
           value={name}
-          onChangeText={setName}
+          onChangeText={(text) => {
+            setName(text);
+            if (nameError) setNameError(null);
+          }}
+          maxLength={MAX_NAME}
+          onSubmitEditing={save}
           placeholder="Drink water"
           placeholderTextColor={c.textMuted}
           selectionColor={c.accent}
@@ -116,12 +177,17 @@ export default function HabitFormScreen() {
               backgroundColor: c.surface,
               borderRadius: radius.md,
               borderWidth: 1,
-              borderColor: c.border,
+              borderColor: nameError ? c.accent : c.border,
               paddingHorizontal: spacing.lg,
               height: 52,
             },
           ]}
         />
+        {nameError && (
+          <AppText variant="caption" color={c.accent} style={{ marginTop: spacing.xs }}>
+            {nameError}
+          </AppText>
+        )}
       </Field>
 
       <Field label="Marker">
@@ -232,18 +298,77 @@ export default function HabitFormScreen() {
         )}
       </Field>
 
+      <Field label="Times a day">
+        <View style={{ flexDirection: "row", alignItems: "center", gap: spacing.lg }}>
+          <StepButton
+            label="−"
+            accessibilityLabel="Fewer times"
+            disabled={perDay <= 1}
+            onPress={() => pick(setPerDay, Math.max(1, perDay - 1))}
+          />
+          <AppText variant="title" style={{ minWidth: 32, textAlign: "center" }}>
+            {perDay}
+          </AppText>
+          <StepButton
+            label="+"
+            accessibilityLabel="More times"
+            disabled={perDay >= MAX_PER_DAY}
+            onPress={() => pick(setPerDay, Math.min(MAX_PER_DAY, perDay + 1))}
+          />
+          <AppText variant="caption" color={c.textMuted} style={{ flex: 1 }}>
+            {perDay === 1 ? "Done with one tap" : `Tap ${perDay} times to finish it`}
+          </AppText>
+        </View>
+      </Field>
+
       <Button
-        label="Save habit"
+        label={saving ? "Saving..." : editing ? "Save changes" : "Save habit"}
         style={{ marginTop: spacing.xxl }}
         onPress={() => {
-          haptic.success();
-          router.back();
+          if (!saving) save();
         }}
       />
-      <AppText variant="caption" color={c.textMuted} style={{ marginTop: spacing.md, textAlign: "center" }}>
-        Preview only. Saving arrives with local storage.
-      </AppText>
+
+      {editing && (
+        <Button
+          label={confirmDelete ? "Tap again to delete for good" : "Delete habit"}
+          variant="ghost"
+          style={{ marginTop: spacing.md }}
+          onPress={remove}
+        />
+      )}
+      {editing && confirmDelete && (
+        <AppText variant="caption" color={c.textMuted} style={{ marginTop: spacing.sm, textAlign: "center" }}>
+          Its whole history will be removed too.
+        </AppText>
+      )}
     </ScrollView>
+  );
+}
+
+type StepButtonProps = { label: string; accessibilityLabel: string; disabled: boolean; onPress: () => void };
+
+function StepButton({ label, accessibilityLabel, disabled, onPress }: StepButtonProps) {
+  const { c } = useTheme();
+  return (
+    <PressableScale
+      onPress={onPress}
+      disabled={disabled}
+      accessibilityRole="button"
+      accessibilityLabel={accessibilityLabel}
+      accessibilityState={{ disabled }}
+      contentStyle={{
+        width: 44,
+        height: 44,
+        borderRadius: 22,
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: c.surface,
+        opacity: disabled ? 0.4 : 1,
+      }}
+    >
+      <AppText variant="heading">{label}</AppText>
+    </PressableScale>
   );
 }
 

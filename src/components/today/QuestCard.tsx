@@ -61,7 +61,7 @@ export function QuestCard({ quest }: { quest: Quest }) {
           <View style={{ flexDirection: "row", alignItems: "center", gap: 5 }}>
             <Glyph name="flag" size={13} color={c.textMuted} strokeWidth={2.2} />
             <AppText variant="caption" color={c.textMuted}>
-              {quest.daysLeft} days left
+              {quest.daysLeft === 1 ? "Last day" : `${quest.daysLeft} days left`}
             </AppText>
           </View>
         )}

@@ -2,7 +2,8 @@ import dayjs from "dayjs";
 import { View } from "react-native";
 
 import { AppText } from "@/components/ui/AppText";
-import { WEEKDAY_INITIAL, weekdayOf } from "@/lib/habits";
+import { weekdayOf } from "@/lib/dates";
+import { WEEKDAY_INITIAL } from "@/lib/habits";
 import { alpha, spacing } from "@/theme/tokens";
 import { useTheme } from "@/theme/useTheme";
 

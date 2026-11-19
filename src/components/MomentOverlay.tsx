@@ -17,7 +17,8 @@ import { Bunting } from "@/components/world/Bunting";
 import { Nim } from "@/components/world/Nim";
 import { Sunburst } from "@/components/world/Sunburst";
 import { GearToken } from "@/components/stats/GearShelf";
-import { gearUnlockedAt, tierForLevel } from "@/lib/gear";
+import { gearUnlockedAt, tierForLevel } from "@/game/gear";
+import { useJourney } from "@/hooks/useJourney";
 import { haptic } from "@/lib/haptics";
 import { useUi, type Moment } from "@/store/ui";
 import { alpha, layout, spacing, springs } from "@/theme/tokens";
@@ -29,7 +30,7 @@ const NIM = 230;
 export function MomentOverlay() {
   const moment = useUi((s) => s.moment);
   const dismiss = useUi((s) => s.dismissMoment);
-  const level = useUi((s) => s.level);
+  const level = useJourney().player.level;
   if (!moment) return null;
   return <MomentScene moment={moment} level={level} onDone={dismiss} />;
 }

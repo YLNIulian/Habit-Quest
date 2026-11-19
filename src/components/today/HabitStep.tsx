@@ -37,10 +37,12 @@ type Props = {
   /** The trail is solid only between two finished steps. */
   nextDone?: boolean;
   onToggle: () => void;
+  // long press removes one check (for habits done more times a day)
+  onUndoOne?: () => void;
 };
 
 /** One habit on today's route: blaze, name, and a check that turns it into metres climbed. */
-export function HabitStep({ habit, count, done, reward, hasNext, nextDone = false, onToggle }: Props) {
+export function HabitStep({ habit, count, done, reward, hasNext, nextDone = false, onToggle, onUndoOne }: Props) {
   const { c } = useTheme();
   const reduced = useReducedMotion();
   const [burst, setBurst] = useState(0);
@@ -76,6 +78,15 @@ export function HabitStep({ habit, count, done, reward, hasNext, nextDone = fals
       accessibilityRole="checkbox"
       accessibilityState={{ checked: done }}
       accessibilityLabel={`${habit.name}, ${status}`}
+      accessibilityHint={multi && count > 0 ? "Long press to remove one" : undefined}
+      onLongPress={
+        multi && count > 0 && onUndoOne
+          ? () => {
+              haptic.tap();
+              onUndoOne();
+            }
+          : undefined
+      }
       onPress={() => {
         if (done) {
           haptic.tap();
@@ -84,6 +95,9 @@ export function HabitStep({ habit, count, done, reward, hasNext, nextDone = fals
           setBurst((b) => b + 1);
           if (!reduced) {
             stamp.set(withSequence(withTiming(1, { duration: 90 }), withSpring(0, springs.burst)));
+          }
+          // the "+15 m" only shows when the habit gets finished
+          if (!reduced && count + 1 >= habit.targetPerDay) {
             float.set(0);
             float.set(withTiming(1, { duration: 900, easing: Easing.out(Easing.cubic) }));
           }

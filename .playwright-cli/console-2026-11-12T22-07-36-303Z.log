@@ -1,0 +1,309 @@
+[    1329ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:8090/node_modules/expo-router/entry.bundle?platform=web&dev=true&hot=false&lazy=true&transform.asyncRoutes=true&transform.routerRoot=src%2Fapp&transform.reactCompiler=true:69890
+[    1350ms] [LOG] Running application "main" with appParams: {rootTag: #root, hydrate: true} @ http://localhost:8090/node_modules/expo-router/entry.bundle?platform=web&dev=true&hot=false&lazy=true&transform.asyncRoutes=true&transform.routerRoot=src%2Fapp&transform.reactCompiler=true:69890
+[    1937ms] [ERROR] A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <EnsureSingleNavigator>
+      <StaticContainer name="__root" render={function Route()} navigation={{...}} route={{key:"__root:0", ...}}>
+        <Route() navigation={{...}} route={{key:"__root:0", ...}}>
+          <Route node={{type:"layout", ...}} params={undefined}>
+            <ZoomTransitionTargetContextProvider route={{key:"__root:0", ...}}>
+              <ZoomTransitionEnabler>
+              <Suspense name="Route(__root)" fallback={<SuspenseFallback>}>
+                <WrappedScreenComponent segment="">
+                  <RootLayout(./_layout.tsx) segment="">
+                    <View style={{flex:1, ...}}>
+                      <div
+                        dir={null}
+                        ref={function forwardRef}
+                        className="css-view-g5y9jx"
+                        style={{
++                         flex: 1
++                         backgroundColor: "rgba(10,16,34,1.00)"
+-                         flex-grow: "1"
+-                         flex-shrink: "1"
+-                         flex-basis: "0%"
+-                         background-color: "rgb(243, 245, 249)"
+                        }}
+                      >
+                        <StatusBar>
+                        ...
+                          <AnimatedHeaderHeightProvider>
+                            <View style={[...]}>
+                              <div
+                                dir={null}
+                                ref={function forwardRef}
+                                className="css-view-g5y9jx r-flex-13awgt0"
+                                style={{
++                                 backgroundColor: "rgba(10,16,34,1.00)"
+-                                 background-color: "rgb(243, 245, 249)"
+                                }}
+                              >
+                        ...
+ @ http://localhost:8090/node_modules/expo-router/entry.bundle?platform=web&dev=true&hot=false&lazy=true&transform.asyncRoutes=true&transform.routerRoot=src%2Fapp&transform.reactCompiler=true:69890
+[    1982ms] [ERROR] A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <TabVisibilityRedirect>
+    <NavigationContent render={function}>
+      <TabSlot>
+      <TabList style={{position:"...", ...}}>
+        <View style={[...]} ref={null}>
+          <div
+            dir={null}
+            ref={function forwardRef}
+            className="css-view-g5y9jx r-justifyContent-1wtj0ep"
+            style={{
++             position: "absolute"
+-             position: "absolute"
++             bottom: "12px"
+-             bottom: "12px"
++             left: "24px"
+-             left: "24px"
++             width: "342px"
++             height: "64px"
+-             height: "64px"
++             paddingLeft: "6px"
++             paddingRight: "6px"
++             paddingTop: "6px"
++             paddingBottom: "6px"
++             flexDirection: "row"
++             borderTopLeftRadius: "999px"
++             borderTopRightRadius: "999px"
++             borderBottomRightRadius: "999px"
++             borderBottomLeftRadius: "999px"
++             borderTopWidth: "1px"
++             borderRightWidth: "1px"
++             borderBottomWidth: "1px"
++             borderLeftWidth: "1px"
++             borderTopColor: "rgba(220,230,255,0.10)"
++             borderRightColor: "rgba(220,230,255,0.10)"
++             borderBottomColor: "rgba(220,230,255,0.10)"
++             borderLeftColor: "rgba(220,230,255,0.10)"
++             backgroundColor: "rgba(19,28,54,1.00)"
++             boxShadow: "0px 12px 32px rgba(0,0,0,0.55)"
+-             padding-left: "6px"
+-             padding-right: "6px"
+-             padding-top: "6px"
+-             padding-bottom: "6px"
+-             flex-direction: "row"
+-             border-top-left-radius: "999px"
+-             border-top-right-radius: "999px"
+-             border-bottom-right-radius: "999px"
+-             border-bottom-left-radius: "999px"
+-             border-top-width: "1px"
+-             border-right-width: "1px"
+-             border-bottom-width: "1px"
+-             border-left-width: "1px"
+-             border-top-color: "rgba(20, 33, 58, 0.1)"
+-             border-right-color: "rgba(20, 33, 58, 0.1)"
+-             border-bottom-color: "rgba(20, 33, 58, 0.1)"
+-             border-left-color: "rgba(20, 33, 58, 0.1)"
+-             background-color: "rgb(255, 255, 255)"
+-             box-shadow: "rgba(20, 33, 58, 0.16) 0px 10px 28px"
+            }}
+          >
+            <TabIndicator index={0} itemWidth={109.33333333333333}>
+              <View style={[...]}>
+                <AnimatedComponent(View) style={[...]} ref={null} forwardedRef={undefined}>
+                  <View style={[...]} ref={function _setComponentRef}>
+                    <div
+                      dir={null}
+                      ref={function forwardRef}
+                      className="css-view-g5y9jx"
+                      style={{
++                       position: "absolute"
+-                       position: "absolute"
++                       left: "6px"
+-                       left: "6px"
++                       top: "6px"
+-                       top: "6px"
++                       bottom: "6px"
+-                       bottom: "6px"
++                       width: "109.33333333333333px"
++                       borderTopLeftRadius: "999px"
++                       borderTopRightRadius: "999px"
++                       borderBottomRightRadius: "999px"
++                       borderBottomLeftRadius: "999px"
++                       backgroundColor: "rgba(255,91,69,0.16)"
++                       pointerEvents: "none"
++                       transform: "translateX(0px)"
+-                       transform: "translateX(0px)"
+-                       border-top-left-radius: "999px"
+-                       border-top-right-radius: "999px"
+-                       border-bottom-right-radius: "999px"
+-                       border-bottom-left-radius: "999px"
+-                       background-color: "rgba(226, 65, 43, 0.1)"
+-                       pointer-events: "none"
+                      }}
+                    >
+            <TabTrigger name="index" href="/" asChild={true}>
+              <Slot.Slot style={{...}} isFocused={true} onPress={function} onLongPress={function} href="/">
+                <TabButton icon="peak" label="Today" style={{...}} isFocused={true} onPress={function} ...>
+                  <Pressable style={{flex:1, ...}} onLongPress={function} href="/" ref={null} onPress={function t1} ...>
+                    <View href="/" accessibilityRole="tab" accessibilityState={{selected:true}} ...>
+                      <a href="/" onKeyDown={function} onClick={function onClick} onContextMenu={function} ...>
+                        <Glyph name="peak" size={20} color="#FF5B45" strokeWidth={2.1}>
+                          <Svg width={20} height={20} viewBox="0 0 24 24">
+                            <svg width={20} height={20} viewBox="0 0 24 24" ref={function} onClick={undefined}>
+                              <Path d="M3 19 L10 ..." stroke="#FF5B45" strokeWidth={2.1} strokeLinecap="round" ...>
+                                <path
+                                  d="M3 19 L10 7 L13.5 13 L16 10 L21 19 Z"
++                                 stroke="#FF5B45"
+-                                 stroke="#E2412B"
+                                  strokeWidth={2.1}
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  fill="none"
+                                  ref={function}
+                                  onClick={undefined}
+                                >
+                        <AppText variant="label" color="#FF5B45" style={{...}}>
+                          <Text style={[...]}>
+                            <LocaleProvider direction="auto" locale={undefined}>
+                              <div
+                                dir="auto"
+                                ref={function forwardRef}
+                                className="css-text-146c3p1"
+                                style={{
++                                 fontSize: "14px"
++                                 lineHeight: "18px"
++                                 color: "rgba(255,91,69,1.00)"
+-                                 color: "rgb(226, 65, 43)"
++                                 fontFamily: "InstrumentSans_600SemiBold"
+-                                 font-size: "14px"
+-                                 line-height: "18px"
+-                                 font-family: "InstrumentSans_600SemiBold"
+                                }}
+                              >
++                               Today
+            <TabTrigger name="habits" href="/habits" asChild={true}>
+              <Slot.Slot style={{...}} isFocused={false} onPress={function} onLongPress={function} href="/habits">
+                <TabButton icon="signpost" label="Habits" style={{...}} isFocused={false} onPress={function} ...>
+                  <Pressable style={{flex:1, ...}} onLongPress={function} href="/habits" ref={null} onPress={function t1} ...>
+                    <View href="/habits" accessibilityRole="tab" accessibilityState={{selected:false}} ...>
+                      <a href="/habits" onKeyDown={function} onClick={function onClick} onContextMenu={function} ...>
+                        <Glyph name="signpost" size={20} color="#8A94B5" strokeWidth={2.1}>
+                          <Svg width={20} height={20} viewBox="0 0 24 24">
+                            <svg width={20} height={20} viewBox="0 0 24 24" ref={function} onClick={undefined}>
+                              <Path d="M12 3 L12 ..." stroke="#8A94B5" strokeWidth={2.1} strokeLinecap="round" ...>
+                                <path
+                                  d="M12 3 L12 21 M12 5.5 L18 5.5 L20.5 8 L18 10.5 L12 10.5 M12 12.5 L6 12.5 L3.5 15 L..."
++                                 stroke="#8A94B5"
+-                                 stroke="#5E6B85"
+                                  strokeWidth={2.1}
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  fill="none"
+                                  ref={function}
+                                  onClick={undefined}
+                                >
+                        <AppText variant="label" color="#8A94B5" style={{...}}>
+                          <Text style={[...]}>
+                            <LocaleProvider direction="auto" locale={undefined}>
+                              <div
+                                dir="auto"
+                                ref={function forwardRef}
+                                className="css-text-146c3p1"
+                                style={{
++                                 fontSize: "14px"
++                                 lineHeight: "18px"
++                                 color: "rgba(138,148,181,1.00)"
+-                                 color: "rgb(94, 107, 133)"
++                                 fontFamily: "InstrumentSans_600SemiBold"
+-                                 font-size: "14px"
+-                                 line-height: "18px"
+-                                 font-family: "InstrumentSans_600SemiBold"
+                                }}
+                              >
++                               Habits
+            <TabTrigger name="stats" href="/stats" asChild={true}>
+              <Slot.Slot style={{...}} isFocused={false} onPress={function} onLongPress={function} href="/stats">
+                <TabButton icon="log" label="Stats" style={{...}} isFocused={false} onPress={function} ...>
+                  <Pressable style={{flex:1, ...}} onLongPress={function} href="/stats" ref={null} onPress={function t1} ...>
+                    <View href="/stats" accessibilityRole="tab" accessibilityState={{selected:false}} ...>
+                      <a href="/stats" onKeyDown={function} onClick={function onClick} onContextMenu={function} ...>
+                        <Glyph name="log" size={20} color="#8A94B5" strokeWidth={2.1}>
+                          <Svg width={20} height={20} viewBox="0 0 24 24">
+                            <svg width={20} height={20} viewBox="0 0 24 24" ref={function} onClick={undefined}>
+                              <Path d="M5 19 L5 1..." stroke="#8A94B5" strokeWidth={2.1} strokeLinecap="round" ...>
+                                <path
+                                  d="M5 19 L5 14 M10 19 L10 10 M15 19 L15 13 M20 19 L20 6"
++                                 stroke="#8A94B5"
+-                                 stroke="#5E6B85"
+                                  strokeWidth={2.1}
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  fill="none"
+                                  ref={function}
+                                  onClick={undefined}
+                                >
+                        <AppText variant="label" color="#8A94B5" style={{...}}>
+                          <Text style={[...]}>
+                            <LocaleProvider direction="auto" locale={undefined}>
+                              <div
+                                dir="auto"
+                                ref={function forwardRef}
+                                className="css-text-146c3p1"
+                                style={{
++                                 fontSize: "14px"
++                                 lineHeight: "18px"
++                                 color: "rgba(138,148,181,1.00)"
+-                                 color: "rgb(94, 107, 133)"
++                                 fontFamily: "InstrumentSans_600SemiBold"
+-                                 font-size: "14px"
+-                                 line-height: "18px"
+-                                 font-family: "InstrumentSans_600SemiBold"
+                                }}
+                              >
++                               Stats
+ @ http://localhost:8090/node_modules/expo-router/entry.bundle?platform=web&dev=true&hot=false&lazy=true&transform.asyncRoutes=true&transform.routerRoot=src%2Fapp&transform.reactCompiler=true:69890
+[  187458ms] ReferenceError: far is not defined
+    at MountainScene (http://localhost:8090/src/components/world/MountainScene.bundle//&platform=web&dev=true&hot=false&lazy=true&transform.asyncRoutes=true&transform.routerRoot=src%2Fapp&transform.reactCompiler=true&modulesOnly=true&runModule=false&minify=false&shallow=true:267:13)
+    at Object.react_stack_bottom_frame (http://localhost:8090/node_modules/expo-router/entry.bundle?platform=web&dev=true&hot=false&lazy=true&transform.asyncRoutes=true&transform.routerRoot=src%2Fapp&transform.reactCompiler=true:19315:20)
+    at renderWithHooks (http://localhost:8090/node_modules/expo-router/entry.bundle?platform=web&dev=true&hot=false&lazy=true&transform.asyncRoutes=true&transform.routerRoot=src%2Fapp&transform.reactCompiler=true:9082:22)
+    at updateFunctionComponent (http://localhost:8090/node_modules/expo-router/entry.bundle?platform=web&dev=true&hot=false&lazy=true&transform.asyncRoutes=true&transform.routerRoot=src%2Fapp&transform.reactCompiler=true:10490:19)
+    at beginWork (http://localhost:8090/node_modules/expo-router/entry.bundle?platform=web&dev=true&hot=false&lazy=true&transform.asyncRoutes=true&transform.routerRoot=src%2Fapp&transform.reactCompiler=true:11113:18)
+    at runWithFiberInDEV (http://localhost:8090/node_modules/expo-router/entry.bundle?platform=web&dev=true&hot=false&lazy=true&transform.asyncRoutes=true&transform.routerRoot=src%2Fapp&transform.reactCompiler=true:5461:70)
+    at performUnitOfWork (http://localhost:8090/node_modules/expo-router/entry.bundle?platform=web&dev=true&hot=false&lazy=true&transform.asyncRoutes=true&transform.routerRoot=src%2Fapp&transform.reactCompiler=true:14023:95)
+    at workLoopSync (http://localhost:8090/node_modules/expo-router/entry.bundle?platform=web&dev=true&hot=false&lazy=true&transform.asyncRoutes=true&transform.routerRoot=src%2Fapp&transform.reactCompiler=true:13918:40)
+    at renderRootSync (http://localhost:8090/node_modules/expo-router/entry.bundle?platform=web&dev=true&hot=false&lazy=true&transform.asyncRoutes=true&transform.routerRoot=src%2Fapp&transform.reactCompiler=true:13903:9)
+    at performWorkOnRoot (http://localhost:8090/node_modules/expo-router/entry.bundle?platform=web&dev=true&hot=false&lazy=true&transform.asyncRoutes=true&transform.routerRoot=src%2Fapp&transform.reactCompiler=true:13577:35)
+    at performSyncWorkOnRoot (http://localhost:8090/node_modules/expo-router/entry.bundle?platform=web&dev=true&hot=false&lazy=true&transform.asyncRoutes=true&transform.routerRoot=src%2Fapp&transform.reactCompiler=true:14743:7)
+    at flushSyncWorkAcrossRoots_impl (http://localhost:8090/node_modules/expo-router/entry.bundle?platform=web&dev=true&hot=false&lazy=true&transform.asyncRoutes=true&transform.routerRoot=src%2Fapp&transform.reactCompiler=true:14658:308)
+    at flushSyncWork$1 (http://localhost:8090/node_modules/expo-router/entry.bundle?platform=web&dev=true&hot=false&lazy=true&transform.asyncRoutes=true&transform.routerRoot=src%2Fapp&transform.reactCompiler=true:13709:84)
+    at Object.scheduleRefresh (http://localhost:8090/node_modules/expo-router/entry.bundle?platform=web&dev=true&hot=false&lazy=true&transform.asyncRoutes=true&transform.routerRoot=src%2Fapp&transform.reactCompiler=true:4774:9)
+    at http://localhost:8090/node_modules/expo-router/entry.bundle?platform=web&dev=true&hot=false&lazy=true&transform.asyncRoutes=true&transform.routerRoot=src%2Fapp&transform.reactCompiler=true:69521:23
+    at Set.forEach (<anonymous>)
+    at Object.performReactRefresh (http://localhost:8090/node_modules/expo-router/entry.bundle?platform=web&dev=true&hot=false&lazy=true&transform.asyncRoutes=true&transform.routerRoot=src%2Fapp&transform.reactCompiler=true:69513:32)
+    at Object.performReactRefresh (http://localhost:8090/node_modules/expo-router/entry.bundle?platform=web&dev=true&hot=false&lazy=true&transform.asyncRoutes=true&transform.routerRoot=src%2Fapp&transform.reactCompiler=true:69280:27)
+    at http://localhost:8090/node_modules/expo-router/entry.bundle?platform=web&dev=true&hot=false&lazy=true&transform.asyncRoutes=true&transform.routerRoot=src%2Fapp&transform.reactCompiler=true:458:21
+[  187456ms] [WARNING] %s
+
+%s
+ An error occurred in the <MountainScene> component. Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries. @ http://localhost:8090/node_modules/expo-router/entry.bundle?platform=web&dev=true&hot=false&lazy=true&transform.asyncRoutes=true&transform.routerRoot=src%2Fapp&transform.reactCompiler=true:69890
+[  213078ms] [WARNING] Disconnected from Metro (1006)
+To reconnect:
+- Ensure that Metro is running and available on the same network
+- Reload this app (will trigger further help if Metro cannot be connected to) @ http://localhost:8090/node_modules/expo-router/entry.bundle?platform=web&dev=true&hot=false&lazy=true&transform.asyncRoutes=true&transform.routerRoot=src%2Fapp&transform.reactCompiler=true:69890

@@ -1,0 +1,88 @@
+- generic [ref=f1e6]:
+  - generic [ref=f1e8]:
+    - generic [ref=f1e9]:
+      - generic [ref=f1e10]:
+        - button "Dismiss error" [disabled] [ref=f1e11]
+        - button "Minimize errors" [disabled] [ref=f1e14]
+      - generic [ref=f1e18]:
+        - button "Previous error" [disabled] [ref=f1e19]
+        - generic [ref=f1e22]: 1/1
+        - button "Next error" [disabled] [ref=f1e23]
+    - generic [ref=f1e26]:
+      - button "Reload application" [ref=f1e27] [cursor=pointer]
+      - button "Copy error" [ref=f1e30] [cursor=pointer]
+      - generic [ref=f1e36]: Debug
+  - generic [ref=f1e40]:
+    - generic [ref=f1e41]:
+      - generic [ref=f1e42]: Resolution Error
+      - generic [ref=f1e44]: Unable to resolve module ./400Regular_Italic/InstrumentSans_400Regular_Italic.ttf
+    - generic [ref=f1e46]:
+      - banner [ref=f1e47]:
+        - generic [ref=f1e48]: C:/Users/Gheorghe/Desktop/habit-rpg/node_modules/@expo-google-fonts/instrument-sans/index.js
+        - button "Copy content" [ref=f1e51] [cursor=pointer]
+      - generic [ref=f1e55]:
+        - generic [ref=f1e56]:
+          - generic [ref=f1e58]: 8 |
+          - generic [ref=f1e60]: export
+          - generic [ref=f1e62]: const
+          - generic [ref=f1e64]: InstrumentSans_600SemiBold
+          - generic [ref=f1e66]: =
+          - generic [ref=f1e67]: require(
+          - generic [ref=f1e68]: "'./600SemiBold/InstrumentSans_600SemiBold.ttf'"
+          - generic [ref=f1e69]: )
+          - generic [ref=f1e70]: ;
+        - generic [ref=f1e71]:
+          - generic [ref=f1e73]: 9 |
+          - generic [ref=f1e75]: export
+          - generic [ref=f1e77]: const
+          - generic [ref=f1e79]: InstrumentSans_700Bold
+          - generic [ref=f1e81]: =
+          - generic [ref=f1e82]: require(
+          - generic [ref=f1e83]: "'./700Bold/InstrumentSans_700Bold.ttf'"
+          - generic [ref=f1e84]: )
+          - generic [ref=f1e85]: ;
+        - generic [ref=f1e86]:
+          - generic [ref=f1e87]: ">"
+          - generic [ref=f1e88]: 10 |
+          - generic [ref=f1e90]: export
+          - generic [ref=f1e92]: const
+          - generic [ref=f1e94]: InstrumentSans_400Regular_Italic
+          - generic [ref=f1e96]: =
+          - generic [ref=f1e97]: require(
+          - generic [ref=f1e98]: "'./400Regular_Italic/InstrumentSans_400Regular_Italic.ttf'"
+          - generic [ref=f1e99]: )
+          - generic [ref=f1e100]: ;
+        - generic [ref=f1e101]:
+          - generic [ref=f1e103]: "|"
+          - generic [ref=f1e105]: ^
+        - generic [ref=f1e106]:
+          - generic [ref=f1e108]: 11 |
+          - generic [ref=f1e110]: export
+          - generic [ref=f1e112]: const
+          - generic [ref=f1e114]: InstrumentSans_500Medium_Italic
+          - generic [ref=f1e116]: =
+          - generic [ref=f1e117]: require(
+          - generic [ref=f1e118]: "'./500Medium_Italic/InstrumentSans_500Medium_Italic.ttf'"
+          - generic [ref=f1e119]: )
+          - generic [ref=f1e120]: ;
+        - generic [ref=f1e121]:
+          - generic [ref=f1e123]: 12 |
+          - generic [ref=f1e125]: export
+          - generic [ref=f1e127]: const
+          - generic [ref=f1e129]: InstrumentSans_600SemiBold_Italic
+          - generic [ref=f1e131]: =
+          - generic [ref=f1e132]: require(
+          - generic [ref=f1e133]: "'./600SemiBold_Italic/InstrumentSans_600SemiBold_Italic.ttf'"
+          - generic [ref=f1e134]: )
+          - generic [ref=f1e135]: ;
+        - generic [ref=f1e136]:
+          - generic [ref=f1e138]: 13 |
+          - generic [ref=f1e140]: export
+          - generic [ref=f1e142]: const
+          - generic [ref=f1e144]: InstrumentSans_700Bold_Italic
+          - generic [ref=f1e146]: =
+          - generic [ref=f1e147]: require(
+          - generic [ref=f1e148]: "'./700Bold_Italic/InstrumentSans_700Bold_Italic.ttf'"
+          - generic [ref=f1e149]: )
+          - generic [ref=f1e150]: ;
+    - contentinfo [ref=f1e152]: Build-time errors can only be dismissed by fixing the issue.

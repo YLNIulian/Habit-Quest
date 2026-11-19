@@ -1,0 +1,56 @@
+- generic [ref=f5e463]:
+  - generic [ref=f5e464]:
+    - generic [ref=f5e465]: Edit habit
+    - button "Cancel" [ref=f5e466] [cursor=pointer]
+  - generic [ref=f5e472]:
+    - generic [ref=f5e473]: Morning run
+    - generic [ref=f5e474]: Trains Vigor
+  - generic [ref=f5e478]:
+    - generic [ref=f5e479]: Name
+    - textbox "Habit name" [ref=f5e480]:
+      - /placeholder: Drink water
+      - text: Morning run
+  - generic [ref=f5e481]:
+    - generic [ref=f5e482]: Marker
+    - generic [ref=f5e483]:
+      - radio "band marker" [ref=f5e484] [cursor=pointer]
+      - radio "cross marker" [ref=f5e489] [cursor=pointer]
+      - radio "triangle marker" [ref=f5e495] [cursor=pointer]
+      - radio "dot marker" [ref=f5e500] [cursor=pointer]
+      - radio "diamond marker" [ref=f5e505] [cursor=pointer]
+  - generic [ref=f5e510]:
+    - generic [ref=f5e511]: Paint
+    - generic [ref=f5e512]:
+      - radio "Red" [ref=f5e513] [cursor=pointer]
+      - radio "Yellow" [ref=f5e517] [cursor=pointer]
+      - radio "Blue" [ref=f5e521] [cursor=pointer]
+  - generic [ref=f5e525]:
+    - generic [ref=f5e526]: Trains
+    - generic [ref=f5e527]:
+      - radio "Vigor" [ref=f5e528] [cursor=pointer]
+      - radio "Focus" [ref=f5e531] [cursor=pointer]
+      - radio "Craft" [ref=f5e534] [cursor=pointer]
+      - radio "Calm" [ref=f5e537] [cursor=pointer]
+    - generic [ref=f5e540]: Body and movement
+  - generic [ref=f5e541]:
+    - generic [ref=f5e542]: How often
+    - generic [ref=f5e543]:
+      - radio "Every day" [ref=f5e544] [cursor=pointer]
+      - radio "Chosen days" [ref=f5e547] [cursor=pointer]
+    - generic [ref=f5e550]:
+      - checkbox "Mon" [ref=f5e551] [cursor=pointer]:
+        - generic [ref=f5e552]: M
+      - checkbox "Tue" [ref=f5e554] [cursor=pointer]:
+        - generic [ref=f5e555]: T
+      - checkbox "Wed" [ref=f5e557] [cursor=pointer]:
+        - generic [ref=f5e558]: W
+      - checkbox "Thu" [ref=f5e560] [cursor=pointer]:
+        - generic [ref=f5e561]: T
+      - checkbox "Fri" [ref=f5e563] [cursor=pointer]:
+        - generic [ref=f5e564]: F
+      - checkbox "Sat" [ref=f5e566] [cursor=pointer]:
+        - generic [ref=f5e567]: S
+      - checkbox "Sun" [ref=f5e569] [cursor=pointer]:
+        - generic [ref=f5e570]: S
+  - button "Save habit" [ref=f5e572] [cursor=pointer]
+  - generic [ref=f5e575]: Preview only. Saving arrives with local storage.

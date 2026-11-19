@@ -1,0 +1,46 @@
+[     287ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:8090/node_modules/expo-router/entry.bundle?platform=web&dev=true&hot=false&lazy=true&transform.engine=hermes&transform.routerRoot=src%2Fapp&transform.reactCompiler=true&unstable_transformProfile=hermes-stable:72267
+[  228327ms] SyntaxError: C:\Users\Gheorghe\Desktop\habit-rpg\src\components\MomentOverlay.tsx: JSX attributes must only be assigned a non-empty expression. (123:50)
+
+  121 |             </LinearGradient>
+  122 |           </Defs>
+> 123 |           <Rect width={winW} height={height} fill={} />
+      |                                                   ^
+  124 |         </Svg>
+  125 |         <Sunburst
+  126 |           size={burstSize}
+[  232338ms] SyntaxError: C:\Users\Gheorghe\Desktop\habit-rpg\src\components\MomentOverlay.tsx: JSX attributes must only be assigned a non-empty expression. (123:50)
+
+  121 |             </LinearGradient>
+  122 |           </Defs>
+> 123 |           <Rect width={winW} height={height} fill={} />
+      |                                                   ^
+  124 |         </Svg>
+  125 |         <Sunburst
+  126 |           size={burstSize}
+[  233849ms] SyntaxError: C:\Users\Gheorghe\Desktop\habit-rpg\src\components\MomentOverlay.tsx: JSX attributes must only be assigned a non-empty expression. (123:50)
+
+  121 |             </LinearGradient>
+  122 |           </Defs>
+> 123 |           <Rect width={winW} height={height} fill={} />
+      |                                                   ^
+  124 |         </Svg>
+  125 |         <Sunburst
+  126 |           size={burstSize}
+[  235649ms] SyntaxError: C:\Users\Gheorghe\Desktop\habit-rpg\src\components\MomentOverlay.tsx: JSX attributes must only be assigned a non-empty expression. (123:50)
+
+  121 |             </LinearGradient>
+  122 |           </Defs>
+> 123 |           <Rect width={winW} height={height} fill={} />
+      |                                                   ^
+  124 |         </Svg>
+  125 |         <Sunburst
+  126 |           size={burstSize}
+[  236459ms] SyntaxError: C:\Users\Gheorghe\Desktop\habit-rpg\src\components\MomentOverlay.tsx: JSX attributes must only be assigned a non-empty expression. (123:50)
+
+  121 |             </LinearGradient>
+  122 |           </Defs>
+> 123 |           <Rect width={winW} height={height} fill={} />
+      |                                                   ^
+  124 |         </Svg>
+  125 |         <Sunburst
+  126 |           size={burstSize}

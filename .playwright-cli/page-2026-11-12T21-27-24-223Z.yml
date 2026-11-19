@@ -1,0 +1,45 @@
+- generic [ref=f2e9]:
+  - generic [ref=f2e13]:
+    - generic [ref=f2e14]: Thursday, 12 November
+    - generic [ref=f2e15]: 4 runes left to light
+    - generic [ref=f2e16]:
+      - generic [ref=f2e18]:
+        - generic [ref=f2e19]: Level
+        - generic [ref=f2e20]: "10"
+        - generic [ref=f2e21]: Blaze
+      - generic [ref=f2e33]:
+        - progressbar [ref=f2e34]
+        - generic [ref=f2e37]:
+          - generic [ref=f2e38]: 340 / 500 XP
+          - generic [ref=f2e39]: 160 to level 11
+      - generic "Health 42 of 50" [ref=f2e41]:
+        - generic [ref=f2e42]: HP
+        - generic [ref=f2e54]: 42 / 50
+    - generic [ref=f2e55]:
+      - checkbox "Drink water, 5 of 8" [ref=f2e56] [cursor=pointer]:
+        - generic [ref=f2e57]:
+          - generic [ref=f2e67]: Drink water
+          - generic [ref=f2e68]: 5 of 8
+      - checkbox "Read 20 pages, Lit" [ref=f2e69] [cursor=pointer]:
+        - generic [ref=f2e70]:
+          - generic [ref=f2e80]: Read 20 pages
+          - generic [ref=f2e81]: Lit
+      - checkbox "Meditate, Tap to light" [ref=f2e82] [cursor=pointer]:
+        - generic [ref=f2e83]:
+          - generic [ref=f2e93]: Meditate
+          - generic [ref=f2e94]: Tap to light
+      - checkbox "Practice guitar, Tap to light" [ref=f2e95] [cursor=pointer]:
+        - generic [ref=f2e96]:
+          - generic [ref=f2e106]: Practice guitar
+          - generic [ref=f2e107]: Tap to light
+      - checkbox "Stretch, 1 of 2" [ref=f2e108] [cursor=pointer]:
+        - generic [ref=f2e109]:
+          - generic [ref=f2e119]: Stretch
+          - generic [ref=f2e120]: 1 of 2
+    - generic [ref=f2e121]:
+      - button "Preview level up" [ref=f2e122] [cursor=pointer]
+      - generic [ref=f2e125]: Test button, not part of the final app
+  - generic [ref=f2e126]:
+    - tab "Today" [ref=f2e127] [cursor=pointer]
+    - tab "Habits" [ref=f2e131] [cursor=pointer]
+    - tab "Stats" [ref=f2e135] [cursor=pointer]

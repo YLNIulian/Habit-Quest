@@ -1,0 +1,80 @@
+- generic [ref=f5e9]:
+  - generic [ref=f5e578]:
+    - generic [ref=f5e579]: Logbook
+    - generic [ref=f5e580]:
+      - generic [ref=f5e581]:
+        - generic [ref=f5e582]:
+          - generic [ref=f5e583]: 2,340
+          - generic [ref=f5e584]: m
+        - generic [ref=f5e585]: Climbed in total
+      - generic [ref=f5e586]:
+        - generic [ref=f5e587]: "12"
+        - generic [ref=f5e589]: Day streak
+      - generic [ref=f5e590]:
+        - generic [ref=f5e591]: "21"
+        - generic [ref=f5e593]: Longest streak
+    - generic [ref=f5e594]:
+      - generic [ref=f5e595]: Attributes
+      - generic "Vigor level 7" [ref=f5e596]:
+        - generic [ref=f5e601]:
+          - generic [ref=f5e602]: Vigor
+          - generic [ref=f5e603]: Body and movement
+        - generic [ref=f5e606]: "7"
+      - generic "Focus level 5" [ref=f5e607]:
+        - generic [ref=f5e612]:
+          - generic [ref=f5e613]: Focus
+          - generic [ref=f5e614]: Reading and study
+        - generic [ref=f5e617]: "5"
+      - generic "Craft level 3" [ref=f5e618]:
+        - generic [ref=f5e623]:
+          - generic [ref=f5e624]: Craft
+          - generic [ref=f5e625]: Making and practice
+        - generic [ref=f5e628]: "3"
+      - generic "Calm level 4" [ref=f5e629]:
+        - generic [ref=f5e634]:
+          - generic [ref=f5e635]: Calm
+          - generic [ref=f5e636]: Rest and stillness
+        - generic [ref=f5e639]: "4"
+    - generic [ref=f5e640]:
+      - generic [ref=f5e641]: Last 12 weeks
+      - generic "Habit history for the last 12 weeks" [ref=f5e643]:
+        - generic [ref=f5e644]:
+          - generic [ref=f5e645]: Aug
+          - generic [ref=f5e648]: Sep
+          - generic [ref=f5e653]: Oct
+          - generic [ref=f5e658]: Nov
+        - generic [ref=f5e662]:
+          - generic [ref=f5e663]: M
+          - generic [ref=f5e666]: W
+          - generic [ref=f5e669]: F
+          - generic [ref=f5e672]: S
+        - generic [ref=f5e770]:
+          - generic [ref=f5e771]: Less
+          - generic [ref=f5e777]: More
+    - generic [ref=f5e778]:
+      - generic [ref=f5e779]: Gear
+      - generic [ref=f5e781]:
+        - generic "Scarf, earned" [ref=f5e782]: Scarf
+        - generic "Lantern, earned" [ref=f5e787]: Lantern
+        - generic "Ice axe, earned" [ref=f5e883]: Ice axe
+        - generic "Storm cloak, unlocks at camp 20" [ref=f5e797]: Camp 20
+        - generic "Summit pennant, unlocks at camp 30" [ref=f5e802]: Camp 30
+    - generic [ref=f5e807]:
+      - generic [ref=f5e808]:
+        - generic [ref=f5e809]: Preview tools
+        - generic [ref=f5e810]: For the demo only. Not part of the final app.
+      - radiogroup [ref=f5e811]:
+        - radio "System" [ref=f5e812] [cursor=pointer]
+        - radio "Night" [ref=f5e815] [cursor=pointer]
+        - radio "Day" [ref=f5e818] [cursor=pointer]
+      - radiogroup [ref=f5e821]:
+        - radio "Clear" [ref=f5e822] [cursor=pointer]
+        - radio "Cold wind" [ref=f5e825] [cursor=pointer]
+        - radio "Blizzard" [active] [ref=f5e828] [cursor=pointer]
+      - generic [ref=f5e831]:
+        - button "Reach next camp" [ref=f5e832] [cursor=pointer]
+        - button "Beat streak record" [ref=f5e835] [cursor=pointer]
+  - generic [ref=f5e288]:
+    - tab "Today" [ref=f5e289] [cursor=pointer]
+    - tab "Habits" [ref=f5e293] [cursor=pointer]
+    - tab "Stats" [ref=f5e297] [cursor=pointer]

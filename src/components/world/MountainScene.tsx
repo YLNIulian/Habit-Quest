@@ -14,6 +14,7 @@ import { Campfire } from "@/components/world/Campfire";
 import { Nim } from "@/components/world/Nim";
 import { Snowfall } from "@/components/world/Snowfall";
 import type { GearTier } from "@/game/gear";
+import type { Look } from "@/game/wardrobe";
 import { nimColors } from "@/theme/tokens";
 import { useTheme } from "@/theme/useTheme";
 import type { Weather } from "@/types";
@@ -69,10 +70,11 @@ type Props = {
   topInset?: number;
   /** Overlay content, positioned over the sky. */
   children?: ReactNode;
+  look?: Look;
 };
 
 /** The mountain: layered ridges, the camp behind, the route ahead, and Nim on the path. */
-export function MountainScene({ width, weather, tier, hop, fire = false, topInset = 0, children }: Props) {
+export function MountainScene({ width, weather, tier, hop, fire = false, topInset = 0, children, look }: Props) {
   const { c, scheme } = useTheme();
   const s = c.scene;
   const k = width / W;
@@ -177,7 +179,7 @@ export function MountainScene({ width, weather, tier, hop, fire = false, topInse
 
         {/* Nim stands on the ledge at x 220–300, y 298. */}
         <View style={{ position: "absolute", left: 216 * k, top: 298 * k - nimSize * 0.96 }}>
-          <Nim tier={tier} size={nimSize} cold={weather === "storm"} hop={hop} />
+          <Nim tier={tier} size={nimSize} cold={weather === "storm"} hop={hop} look={look} />
         </View>
 
         {snowCount > 0 && (

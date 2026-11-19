@@ -72,10 +72,12 @@ type TabButtonProps = Omit<TabTriggerSlotProps, "ref"> & {
   icon: GlyphName;
   label: string;
   ref?: ComponentProps<typeof Pressable>["ref"];
+  // small screens: only the active tab shows its label
+  compact?: boolean;
 };
 
 /** Child of <TabTrigger asChild>: receives isFocused and the navigation handlers. */
-export function TabButton({ icon, label, isFocused, onPress, ...rest }: TabButtonProps) {
+export function TabButton({ icon, label, isFocused, onPress, compact = false, ...rest }: TabButtonProps) {
   const { c } = useTheme();
   const color = isFocused ? c.accent : c.textMuted;
   return (
@@ -97,9 +99,11 @@ export function TabButton({ icon, label, isFocused, onPress, ...rest }: TabButto
       }}
     >
       <Glyph name={icon} size={20} color={color} strokeWidth={2.1} />
-      <AppText variant="label" color={color} style={{ fontFamily: "InstrumentSans_600SemiBold" }}>
-        {label}
-      </AppText>
+      {(!compact || isFocused) && (
+        <AppText variant="label" color={color} numberOfLines={1} style={{ fontFamily: "InstrumentSans_600SemiBold" }}>
+          {label}
+        </AppText>
+      )}
     </Pressable>
   );
 }

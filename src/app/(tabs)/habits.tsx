@@ -109,8 +109,8 @@ function HabitRow({ habit, log, today, last }: RowProps) {
     <PressableScale
       pressedScale={0.98}
       accessibilityRole="button"
-      accessibilityLabel={`Edit ${habit.name}`}
-      onPress={() => router.push({ pathname: "/habit-form", params: { id: habit.id } })}
+      accessibilityLabel={`Open ${habit.name}`}
+      onPress={() => router.push({ pathname: "/habit/[id]", params: { id: habit.id } })}
       contentStyle={{
         flexDirection: "row",
         alignItems: "center",

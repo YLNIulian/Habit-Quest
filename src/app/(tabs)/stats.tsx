@@ -12,6 +12,7 @@ import { dayRatio } from "@/game/history";
 import { useJourney } from "@/hooks/useJourney";
 import { useHabitStore } from "@/store/useHabitStore";
 import { useUi } from "@/store/ui";
+import { useWardrobeStore } from "@/store/useWardrobeStore";
 import { layout, radius, spacing, type Scheme } from "@/theme/tokens";
 import { useTheme } from "@/theme/useTheme";
 import type { Weather } from "@/types";
@@ -104,6 +105,10 @@ function DevTools({ realTotalXp, best }: { realTotalXp: number; best: number }) 
   const resetPreview = useUi((s) => s.resetPreview);
   const loadDemo = useHabitStore((s) => s.loadDemo);
   const clearAll = useHabitStore((s) => s.clearAll);
+  const reopenYesterday = useHabitStore((s) => s.reopenYesterday);
+  const resetWardrobe = useWardrobeStore((s) => s.reset);
+  const devBonusCoins = useUi((s) => s.devBonusCoins);
+  const addDevCoins = useUi((s) => s.addDevCoins);
   const [confirmClear, setConfirmClear] = useState(false);
 
   return (
@@ -138,11 +143,24 @@ function DevTools({ realTotalXp, best }: { realTotalXp: number; best: number }) 
         <Button label="Next camp" variant="ghost" size="sm" onPress={() => previewCamp(realTotalXp - devBonusXp)} style={{ flex: 1 }} />
         <Button label="Streak record" variant="ghost" size="sm" onPress={() => previewRecord(best)} style={{ flex: 1 }} />
       </View>
-      {(devBonusXp > 0 || weatherPreview) && (
-        <Button label={`Back to real data${devBonusXp > 0 ? ` (+${devBonusXp} m)` : ""}`} variant="ghost" size="sm" onPress={resetPreview} />
+      <View style={{ flexDirection: "row", gap: spacing.sm }}>
+        <Button label="+500 coins" variant="ghost" size="sm" onPress={() => addDevCoins(500)} style={{ flex: 1 }} />
+        <Button label="Trail report" variant="ghost" size="sm" onPress={() => reopenYesterday()} style={{ flex: 1 }} />
+      </View>
+      {(devBonusXp > 0 || devBonusCoins > 0 || weatherPreview) && (
+        <Button label="Back to real data" variant="ghost" size="sm" onPress={resetPreview} />
       )}
       <View style={{ flexDirection: "row", gap: spacing.sm }}>
-        <Button label="Load demo data" variant="ghost" size="sm" onPress={() => loadDemo()} style={{ flex: 1 }} />
+        <Button
+          label="Load demo data"
+          variant="ghost"
+          size="sm"
+          onPress={async () => {
+            await resetWardrobe();
+            await loadDemo();
+          }}
+          style={{ flex: 1 }}
+        />
         <Button
           label={confirmClear ? "Sure? Tap again" : "Clear all data"}
           variant="ghost"
@@ -154,6 +172,7 @@ function DevTools({ realTotalXp, best }: { realTotalXp: number; best: number }) 
               return;
             }
             setConfirmClear(false);
+            resetWardrobe();
             clearAll();
           }}
         />

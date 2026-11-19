@@ -18,7 +18,9 @@ import { Nim } from "@/components/world/Nim";
 import { Sunburst } from "@/components/world/Sunburst";
 import { GearToken } from "@/components/stats/GearShelf";
 import { gearUnlockedAt, tierForLevel } from "@/game/gear";
+import type { Look } from "@/game/wardrobe";
 import { useJourney } from "@/hooks/useJourney";
+import { useWardrobeStore } from "@/store/useWardrobeStore";
 import { haptic } from "@/lib/haptics";
 import { useUi, type Moment } from "@/store/ui";
 import { alpha, layout, spacing, springs } from "@/theme/tokens";
@@ -31,14 +33,15 @@ export function MomentOverlay() {
   const moment = useUi((s) => s.moment);
   const dismiss = useUi((s) => s.dismissMoment);
   const level = useJourney().player.level;
+  const look = useWardrobeStore((s) => s.look);
   if (!moment) return null;
-  return <MomentScene moment={moment} level={level} onDone={dismiss} />;
+  return <MomentScene moment={moment} level={level} look={look} onDone={dismiss} />;
 }
 
-type SceneProps = { moment: Moment; level: number; onDone: () => void };
+type SceneProps = { moment: Moment; level: number; look: Look; onDone: () => void };
 
 // The one big moment per achievement: flags unfurl, Nim climbs into view, the number lands.
-function MomentScene({ moment, level, onDone }: SceneProps) {
+function MomentScene({ moment, level, look, onDone }: SceneProps) {
   const { c, scheme } = useTheme();
   const s = c.scene;
   const insets = useSafeAreaInsets();
@@ -146,7 +149,7 @@ function MomentScene({ moment, level, onDone }: SceneProps) {
         <Animated.View
           style={[{ position: "absolute", top: groundTop + 56 - NIM * 0.96, alignItems: "center" }, riseStyle]}
         >
-          <Nim tier={tier} size={NIM} hop={hop} />
+          <Nim tier={tier} size={NIM} hop={hop} look={look} />
           <Burst
             trigger={landed ? 1 : 0}
             colors={[c.blaze.red, c.blaze.yellow, c.blaze.blue]}

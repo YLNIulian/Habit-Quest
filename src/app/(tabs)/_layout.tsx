@@ -7,8 +7,12 @@ import { TabButton, TabIndicator, useTabBarMetrics } from "@/components/TabBar";
 const TABS = [
   { name: "index", href: "/", label: "Today", icon: "peak" },
   { name: "habits", href: "/habits", label: "Habits", icon: "signpost" },
+  { name: "outfit", href: "/outfit", label: "Outfit", icon: "scarf" },
   { name: "stats", href: "/stats", label: "Stats", icon: "log" },
 ] as const;
+
+// below this width a tab can't fit icon + label
+const COMPACT_TAB = 96;
 
 export default function TabsLayout() {
   const pathname = usePathname();
@@ -26,7 +30,7 @@ export default function TabsLayout() {
         <TabIndicator index={active} itemWidth={itemWidth} />
         {TABS.map((tab) => (
           <TabTrigger key={tab.name} name={tab.name} href={tab.href} asChild>
-            <TabButton icon={tab.icon} label={tab.label} />
+            <TabButton icon={tab.icon} label={tab.label} compact={itemWidth < COMPACT_TAB} />
           </TabTrigger>
         ))}
       </TabList>

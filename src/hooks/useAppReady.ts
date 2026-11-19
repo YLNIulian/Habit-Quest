@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { initDatabase } from "@/database/db";
 import { useHabitStore } from "@/store/useHabitStore";
 import { useUi } from "@/store/ui";
+import { useWardrobeStore } from "@/store/useWardrobeStore";
 
 // fonts + database + saved data
 export function useAppReady(): { ready: boolean; error: Error | null } {
@@ -24,7 +25,13 @@ export function useAppReady(): { ready: boolean; error: Error | null } {
 
   useEffect(() => {
     initDatabase()
-      .then(() => Promise.all([useHabitStore.getState().load(), useUi.getState().loadSettings()]))
+      .then(() =>
+        Promise.all([
+          useHabitStore.getState().load(),
+          useUi.getState().loadSettings(),
+          useWardrobeStore.getState().load(),
+        ]),
+      )
       .then(() => setDataReady(true))
       .catch((e: unknown) => setDbError(e instanceof Error ? e : new Error(String(e))));
   }, []);

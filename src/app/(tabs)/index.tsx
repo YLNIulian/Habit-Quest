@@ -15,11 +15,13 @@ import { MountainScene } from "@/components/world/MountainScene";
 import { tierForLevel } from "@/game/gear";
 import { countOn, dueOn, isDone } from "@/game/history";
 import { XP_PER_HABIT } from "@/game/rules";
+import { useCoins } from "@/hooks/useCoins";
 import { useCountUp } from "@/hooks/useCountUp";
 import { useJourney } from "@/hooks/useJourney";
 import { useToday } from "@/hooks/useToday";
 import { fromIso, relativeDayLabel } from "@/lib/dates";
 import { useHabitStore } from "@/store/useHabitStore";
+import { useWardrobeStore } from "@/store/useWardrobeStore";
 import { layout, spacing } from "@/theme/tokens";
 import { useTheme } from "@/theme/useTheme";
 
@@ -36,6 +38,8 @@ export default function TodayScreen() {
   const checkIn = useHabitStore((s) => s.checkIn);
   const checkOut = useHabitStore((s) => s.checkOut);
   const { player, quests } = useJourney();
+  const { balance } = useCoins();
+  const look = useWardrobeStore((s) => s.look);
 
   const due = dueOn(habits, today);
   const doneCount = due.filter((h) => isDone(h, log, today)).length;
@@ -60,6 +64,7 @@ export default function TodayScreen() {
         width={width}
         weather={player.weather}
         tier={tierForLevel(player.level)}
+        look={look}
         hop={hop}
         fire={due.length > 0 && remaining === 0}
         topInset={insets.top}
@@ -90,6 +95,7 @@ export default function TodayScreen() {
               color={player.weather === "storm" ? c.cold : c.sun}
             />
             <StatPill icon="flag" label="Day streak" value={`${player.streakDays}`} color={c.accent} />
+            <StatPill icon="coin" label="Coins" value={`${balance}`} color={c.sunText} />
           </View>
         </View>
       </MountainScene>

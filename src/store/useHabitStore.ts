@@ -3,18 +3,23 @@ import { create } from "zustand";
 import { saveCharacterSnapshot } from "@/database/repositories/characterRepository";
 import { fetchCompletionLog, setCompletionCount } from "@/database/repositories/completionsRepository";
 import * as habitsRepo from "@/database/repositories/habitsRepository";
+import { getSetting, setSetting } from "@/database/repositories/settingsRepository";
 import { clearAllData, loadDemoData } from "@/database/seed";
 import { countOn } from "@/game/history";
 import { simulateJourney } from "@/game/journey";
-import { todayIso } from "@/lib/dates";
+import { addDays, todayIso } from "@/lib/dates";
 import { createId } from "@/lib/id";
 import { useUi } from "@/store/ui";
 import type { CompletionLog, Habit, HabitDraft, IsoDate } from "@/types";
+
+const SETTLED_KEY = "settled_through";
 
 interface HabitState {
   ready: boolean;
   habits: Habit[];
   log: CompletionLog;
+  // last day whose misses already cost warmth (set by "Start the day")
+  settledThrough: IsoDate | null;
 
   load: () => Promise<void>;
   addHabit: (draft: HabitDraft) => Promise<Habit>;
@@ -25,16 +30,23 @@ interface HabitState {
   checkIn: (habitId: string, date: IsoDate) => void;
   // long press: -1
   checkOut: (habitId: string, date: IsoDate) => void;
+  // calendar: mark a whole day done or not done
+  setDayDone: (habitId: string, date: IsoDate, done: boolean) => void;
+  settleThrough: (date: IsoDate) => Promise<void>;
+  // dev only: opens yesterday again so the trail report shows
+  reopenYesterday: () => Promise<void>;
 
   loadDemo: () => Promise<void>;
   clearAll: () => Promise<void>;
 }
 
 export const useHabitStore = create<HabitState>((set, get) => {
+  const journeyOf = (log: CompletionLog) => simulateJourney(get().habits, log, todayIso(), get().settledThrough);
+
   // update the screen first, then save. if saving fails, reload from the database
   const setCount = (habitId: string, date: IsoDate, count: number) => {
-    const { habits, log } = get();
-    const before = simulateJourney(habits, log, todayIso());
+    const { log } = get();
+    const before = journeyOf(log);
 
     const days = { ...log[habitId] };
     if (count > 0) days[date] = count;
@@ -42,7 +54,7 @@ export const useHabitStore = create<HabitState>((set, get) => {
     const nextLog = { ...log, [habitId]: days };
     set({ log: nextLog });
 
-    const after = simulateJourney(habits, nextLog, todayIso());
+    const after = journeyOf(nextLog);
     celebrate(before.player, after.player);
 
     setCompletionCount(habitId, date, count)
@@ -50,16 +62,28 @@ export const useHabitStore = create<HabitState>((set, get) => {
       .catch(() => get().load());
   };
 
+  const saveSettled = async (date: IsoDate) => {
+    set({ settledThrough: date });
+    await setSetting(SETTLED_KEY, date);
+  };
+
   const reload = async () => {
-    const [habits, log] = await Promise.all([habitsRepo.fetchHabits(), fetchCompletionLog()]);
-    set({ habits, log, ready: true });
-    saveCharacterSnapshot(simulateJourney(habits, log, todayIso())).catch(() => {});
+    const [habits, log, settled] = await Promise.all([
+      habitsRepo.fetchHabits(),
+      fetchCompletionLog(),
+      getSetting(SETTLED_KEY),
+    ]);
+    set({ habits, log, settledThrough: settled, ready: true });
+    // first launch: nothing to report yet
+    if (!settled) await saveSettled(addDays(todayIso(), -1));
+    saveCharacterSnapshot(journeyOf(log)).catch(() => {});
   };
 
   return {
     ready: false,
     habits: [],
     log: {},
+    settledThrough: null,
 
     load: reload,
 
@@ -99,14 +123,32 @@ export const useHabitStore = create<HabitState>((set, get) => {
       if (count > 0) setCount(habitId, date, count - 1);
     },
 
+    setDayDone: (habitId, date, done) => {
+      const habit = get().habits.find((h) => h.id === habitId);
+      if (!habit) return;
+      setCount(habitId, date, done ? habit.targetPerDay : 0);
+    },
+
+    settleThrough: async (date) => {
+      const current = get().settledThrough;
+      if (current && current >= date) return;
+      await saveSettled(date);
+      saveCharacterSnapshot(journeyOf(get().log)).catch(() => {});
+    },
+
+    reopenYesterday: () => saveSettled(addDays(todayIso(), -2)),
+
     loadDemo: async () => {
       await loadDemoData();
       await reload();
+      // leave yesterday open so the trail report shows up
+      await saveSettled(addDays(todayIso(), -2));
     },
 
     clearAll: async () => {
       await clearAllData();
       await reload();
+      await saveSettled(addDays(todayIso(), -1));
     },
   };
 });
